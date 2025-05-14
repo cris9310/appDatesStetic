@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'drf_spectacular',
+    'drf_spectacular_sidecar',
     'apps.users',
     'apps.dates',
     'apps.services',
@@ -77,7 +79,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'sthetics_marketplace.wsgi.application'
 
-
+AUTH_USER_MODEL = 'users.User'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
@@ -139,3 +141,10 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}

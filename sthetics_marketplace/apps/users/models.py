@@ -21,8 +21,8 @@ class CustomUserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     ROLE_CHOICES = (
-        ('client', 'Client'),
-        ('professional', 'Professional'),
+        ('Client', 'Client'),
+        ('Professional', 'Professional'),
     )
 
     email = models.EmailField(unique=True)
