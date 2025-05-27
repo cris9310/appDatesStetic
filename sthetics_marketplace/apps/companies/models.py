@@ -14,14 +14,9 @@ class City(models.Model):
     def __str__(self):
         return f"{self.name} ({self.department})"
     
-class Category(models.Model):
-    name = models.CharField(max_length=100)
 
-    def __str__(self):
-        return f"{self.name}"
 
 class Location(models.Model):
-    category =  models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     image = models.ImageField(upload_to="locations/", null=True, blank=True)
     address = models.TextField()
