@@ -16,7 +16,7 @@ class RegisterClientView(generics.CreateAPIView):
 #Vista para registrar profesionales 
 class RegisterProfessionalView(generics.CreateAPIView):
     queryset =  User.objects.all()
-    serializer_class = ClientRegisterSerializer
+    serializer_class = ProfessionalRegisterSerializer
     permission_classes = [permissions.AllowAny]
 
 
@@ -26,6 +26,40 @@ class LoginView(TokenObtainPairView):
 
 #Esta vista sirve para ver el detalle del usuario
 class ProfileView(generics.RetrieveAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
+
+
+
+#Listamos los usuarios que son profesionales
+class ProfessionalListView(generics.ListAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def get_queryset(self):
+        return User.objects.filter(roles__name='Professional', is_active=True)
+    
+
+# Vemos el detalle de los profesionales seleccionados
+class ProfessionalDetailView(generics.RetrieveAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [permissions.AllowAny]
+    queryset = User.objects.filter(roles__name='Professional', is_active=True)
+    lookup_field = 'id'
+
+# Eliminar cuenta
+class DeleteAccountView(generics.DestroyAPIView):
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        return self.request.user
+    
+# Actualizar perfil
+class UpdateProfileView(generics.UpdateAPIView):
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -46,35 +80,3 @@ class ChangePasswordView(APIView):
             user.save()
             return Response({"detail": "Contraseña cambiada correctamente."})
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-#Listamos los usuarios que son profesionales
-class ProfessionalListView(generics.ListAPIView):
-    serializer_class = UserSerializer
-    permission_classes = [permissions.AllowAny]
-
-    def get_queryset(self):
-        return User.objects.filter(role='professional', is_active=True)
-    
-
-# Vemos el detalle de los profesionales seleccionados
-class ProfessionalDetailView(generics.RetrieveAPIView):
-    serializer_class = UserSerializer
-    permission_classes = [permissions.AllowAny]
-    queryset = User.objects.filter(role='professional', is_active=True)
-    lookup_field = 'id'
-
-# Eliminar cuenta
-class DeleteAccountView(generics.DestroyAPIView):
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_object(self):
-        return self.request.user
-    
-# Actualizar perfil
-class UpdateProfileView(generics.UpdateAPIView):
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_object(self):
-        return self.request.user

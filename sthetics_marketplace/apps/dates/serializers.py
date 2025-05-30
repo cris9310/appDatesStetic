@@ -9,8 +9,8 @@ User = get_user_model()
 class AppointmentSerializer(serializers.ModelSerializer):
 
     #Esta parte nos ayuda a realizar filtros directos mostrando relaciones entre modelos
-    client = serializers.PrimaryKeyRelatedField(queryset=User.objects.filter(role='client'))
-    professional = serializers.PrimaryKeyRelatedField(queryset=User.objects.filter(role='professional'))
+    client = serializers.PrimaryKeyRelatedField(queryset=User.objects.filter(roles__name='Client'))
+    professional = serializers.PrimaryKeyRelatedField(queryset=User.objects.filter(roles__name='Professional'))
     service = serializers.PrimaryKeyRelatedField(queryset=Service.objects.all())
     location = serializers.PrimaryKeyRelatedField(queryset=Location.objects.all())
 

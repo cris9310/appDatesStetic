@@ -1,13 +1,17 @@
 from rest_framework import serializers
 
+from django.utils import timezone
+from datetime import timedelta
 
-from .models import User
+from .models import User, Role
 
 #Nos sirve para mostrar la información del usuario, quitando los datos sensibles como la contraseña
 class UserSerializer(serializers.ModelSerializer):
+    active_role = serializers.CharField(read_only=True)
+
     class Meta:
         model = User
-        fields = ['id', 'email', 'name', 'role', 'phone', 'profile_image']
+        fields = ['id', 'email', 'name', 'phone', 'profile_image','active_role']
         
 
 
@@ -17,24 +21,18 @@ class ClientRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model=User
-        fields = ['email', 'name','phone', 'password']
+        fields = ['identification', 'email', 'name','phone', 'password','profile_image']
 
     def create(self, validated_data):
-        validated_data['role'] = 'client'
-        user  =  User.objects.create_user(**validated_data)
-        return user
+        password = validated_data.pop('password')
+        user = User.objects.create(**validated_data)
+        user.set_password(password)
+        user.save()
 
-#nos sirve para registrar a clientes nuevos
-class ClientRegisterSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only = True)
-
-    class Meta:
-        model=User
-        fields = ['email', 'name','phone', 'password']
-
-    def create(self, validated_data):
-        validated_data['role'] = 'client'
-        user  =  User.objects.create_user(**validated_data)
+        client_role = Role.objects.get(name='Client')
+        user.roles.add(client_role)
+        user.active_role = 'Client'
+        user.save()
         return user
 
 class ProfessionalRegisterSerializer(serializers.ModelSerializer):
@@ -42,11 +40,20 @@ class ProfessionalRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model=User
-        fields = ['email', 'name','phone', 'password']
+        fields = ['identification','email', 'name','phone', 'password','profile_image']
 
     def create(self, validated_data):
-        validated_data['role'] = 'Professional'
-        user  =  User.objects.create_user(**validated_data)
+        password = validated_data.pop('password')
+        user = User.objects.create(**validated_data)
+        user.set_password(password)
+
+        user.trial_start_date = timezone.now().date()
+        user.trial_end_date = timezone.now().date() + timedelta(days=7)
+        user.save()
+        professional_role = Role.objects.get(name='Professional')
+        user.roles.add(professional_role)
+        user.active_role = 'Professional'
+        user.save()
         return user
 
 
