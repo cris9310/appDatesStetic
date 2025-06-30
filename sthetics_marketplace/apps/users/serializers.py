@@ -3,7 +3,7 @@ from rest_framework import serializers
 from django.utils import timezone
 from datetime import timedelta
 
-from .models import User, Role
+from .models import User
 
 #Nos sirve para mostrar la información del usuario, quitando los datos sensibles como la contraseña
 class UserSerializer(serializers.ModelSerializer):
@@ -11,7 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'email', 'name', 'phone', 'profile_image','active_role']
+        fields = ['id', 'email', 'name', 'phone','role','profile_image','active_role']
         
 
 
@@ -21,17 +21,13 @@ class ClientRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model=User
-        fields = ['identification', 'email', 'name','phone', 'password','profile_image']
+        fields = ['email', 'name','phone', 'password','profile_image']
 
     def create(self, validated_data):
         password = validated_data.pop('password')
         user = User.objects.create(**validated_data)
         user.set_password(password)
-        user.save()
-
-        client_role = Role.objects.get(name='Client')
-        user.roles.add(client_role)
-        user.active_role = 'Client'
+        user.role='Client'
         user.save()
         return user
 
@@ -40,7 +36,7 @@ class ProfessionalRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model=User
-        fields = ['identification','email', 'name','phone', 'password','profile_image']
+        fields = ['email', 'name','phone', 'password','profile_image']
 
     def create(self, validated_data):
         password = validated_data.pop('password')
@@ -48,11 +44,8 @@ class ProfessionalRegisterSerializer(serializers.ModelSerializer):
         user.set_password(password)
 
         user.trial_start_date = timezone.now().date()
-        user.trial_end_date = timezone.now().date() + timedelta(days=7)
-        user.save()
-        professional_role = Role.objects.get(name='Professional')
-        user.roles.add(professional_role)
-        user.active_role = 'Professional'
+        user.trial_end_date = timezone.now().date() + timedelta(days=14)
+        user.role = 'Professional'
         user.save()
         return user
 

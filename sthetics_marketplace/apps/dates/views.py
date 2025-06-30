@@ -13,9 +13,9 @@ class AppointmentListCreateView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        if user.role == 'client':
+        if user.role == 'Client':
             return Appointment.objects.filter(client=user)
-        elif user.role == 'professional':
+        elif user.role == 'Professional':
             return Appointment.objects.filter(professional=user)
         return Appointment.objects.none()
 
@@ -26,7 +26,7 @@ class AppointmentListCreateView(generics.ListCreateAPIView):
             raise serializers.ValidationError({"datetime": "No puedes agendar citas en el pasado."})
         
         # Asignar automáticamente el cliente si es quien crea la cita
-        if self.request.user.role == 'client':
+        if self.request.user.role == 'Client':
             serializer.save(client=self.request.user)
         else:
             serializer.save()

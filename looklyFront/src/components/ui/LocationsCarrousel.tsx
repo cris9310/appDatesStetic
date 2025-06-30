@@ -60,17 +60,10 @@ const LocationList = () => {
                     <h3 className=" font-semibold text-base text-indigo-950">{salon.name} ({salon.total_reviews})</h3>
                     <span className=" text-gray-500 text-xs mt-1">{capitalizeFirstLetter(salon.address)} -  {salon.city}</span>
                     <div className="mt-2 flex flex-wrap gap-1">
-                        {salon.services.slice(0, 2).map((service, index) => (
-                          <Badge key={index} variant="outline" className="bg-violet-600 text-xs text-neutral-50 px-1.5 py-0.5">
-                            {service.category}
-                          </Badge>
-                        ))}
-                        {salon.services.length > 2 && (
-                          <Badge variant="outline" className="bg-violet-600 text-neutral-50 text-xs px-1.5 py-0.5">
-                            +{salon.services.length - 2}
-                          </Badge>
-                        )}
-                      </div>
+                        <Badge variant="outline" className="bg-violet-600 text-xs text-neutral-50 px-1.5 py-0.5">
+                          {salon.category}
+                        </Badge>
+                    </div>
                   </CardContent>
                   <CardFooter className="h-[30px] justify-center">
                     <Button variant="default" className="bg-violet-600 text-neutral-50 transition-transform duration-500 w-[100px]

@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from .models import *
 from .serializers import *
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 class CityViewSet(viewsets.ModelViewSet):
     queryset = City.objects.all()
     serializer_class = CitySerializer
-    permission_classes = [IsAuthenticated] 
+    permission_classes = [AllowAny]
 
 # Crud de las localizaciones del local
 class LocationViewSet(viewsets.ModelViewSet):
@@ -20,3 +20,7 @@ class LocationViewSet(viewsets.ModelViewSet):
         # Asignamos local al usuario
         serializer.save(owner=self.request.user)
 
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [AllowAny] 

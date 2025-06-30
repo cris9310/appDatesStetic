@@ -13,17 +13,22 @@ class City(models.Model):
     def __str__(self):
         return f"{self.name} ({self.department})"
     
+class Category(models.Model):
+    name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return f"{self.name}"
 
 class Location(models.Model):
+    category =  models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
     rut_document = models.FileField(upload_to="locations/rut/", null=True, blank=True)
     nit = models.CharField(max_length=15, unique=False, help_text="Número de identificación tributaria",blank=True)
-    name = models.CharField(max_length=100)
+    name_business = models.CharField(max_length=100)
     image = models.ImageField(upload_to="locations/", null=True, blank=True)
     address = models.TextField()
     city =  models.ForeignKey(City, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=10, blank=False, validators=[validate_10_digits], help_text="Número de 10 dígitos sin prefijo (ej: 3001234567).")
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'roles': 'Professional'})
+    phone_business = models.CharField(max_length=10, blank=False, validators=[validate_10_digits], help_text="Número de 10 dígitos sin prefijo (ej: 3001234567).")
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, limit_choices_to={'role': 'Professional'})
     opening_time = models.TimeField(default='08:00:00', verbose_name="Hora de apertura")
     closing_time = models.TimeField(default='18:00:00', verbose_name="Hora de cierre")
     available_days = models.CharField(
@@ -35,7 +40,7 @@ class Location(models.Model):
     
     
     def __str__(self):
-        return f"{self.name} - {self.city}"
+        return f"{self.name_business} - {self.city}"
     
 class Reviews(models.Model):
     location =  models.ForeignKey(Location, on_delete=models.CASCADE,  null=True)

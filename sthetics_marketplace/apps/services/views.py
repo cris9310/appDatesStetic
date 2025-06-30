@@ -25,5 +25,5 @@ class ServiceViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         location = serializer.validated_data.get("location")
         if location.owner != self.request.user:
-            raise PermissionDenied("No puedes crear servicios en una ubicación que no te pertenece.")
+            raise PermissionDenied("No puedes crear servicios en un local que no te pertenece.")
         serializer.save()

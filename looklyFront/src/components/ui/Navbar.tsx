@@ -1,11 +1,17 @@
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Navbar() {
 
   
   const [scrolled, setScrolled] = useState(false);
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate("/register-business");
+  };
   
   useEffect(() => {
   const handleScroll = () => {
@@ -36,7 +42,7 @@ export default function Navbar() {
         scrolled ? "text-violet-600  hover:text-indigo-950 transition-colors": "text-neutral-50 hover:text-violet-600/90 transition-colors"}`}>Descargar</a>
       </div>
       <div>
-          <Button className="bg-violet-600 hover:bg-violet-600/90 text-neutral-50 rounded-full px-6">
+          <Button onClick={handleClick} className="bg-violet-600 hover:bg-violet-600/90 text-neutral-50 rounded-full px-6">
             Registra tu negocio
           </Button>
         </div>

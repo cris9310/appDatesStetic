@@ -40,14 +40,14 @@ class ProfessionalListView(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
 
     def get_queryset(self):
-        return User.objects.filter(roles__name='Professional', is_active=True)
+        return User.objects.filter(role='Professional', is_active=True)
     
 
 # Vemos el detalle de los profesionales seleccionados
 class ProfessionalDetailView(generics.RetrieveAPIView):
     serializer_class = UserSerializer
     permission_classes = [permissions.AllowAny]
-    queryset = User.objects.filter(roles__name='Professional', is_active=True)
+    queryset = User.objects.filter(role='Professional', is_active=True)
     lookup_field = 'id'
 
 # Eliminar cuenta

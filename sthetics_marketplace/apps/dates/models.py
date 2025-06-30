@@ -4,8 +4,8 @@ from apps.services.models import Service
 from apps.companies.models import Location
 
 class Appointment(models.Model):
-    client = models.ForeignKey(User, related_name='appointments', on_delete=models.CASCADE, limit_choices_to={'roles': 'Client'})
-    professional = models.ForeignKey(User, related_name='services_given', on_delete=models.CASCADE, limit_choices_to={'roles': 'Professional'})
+    client = models.ForeignKey(User, related_name='appointments', on_delete=models.CASCADE, limit_choices_to={'role': 'Client'})
+    professional = models.ForeignKey(User, related_name='services_given', on_delete=models.CASCADE, limit_choices_to={'role': 'Professional'})
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     datetime = models.DateTimeField(verbose_name="Fecha y hora de la cita")
