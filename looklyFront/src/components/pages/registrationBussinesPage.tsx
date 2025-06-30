@@ -1,8 +1,7 @@
-import { Check, ArrowRight, ArrowLeft, User, Building, Clock, Eye, AlertCircleIcon, CheckCircle2Icon} from "lucide-react";
+import { Check, ArrowRight, ArrowLeft, User, Building, Clock, Eye} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import {Alert, AlertDescription, AlertTitle} from "@/components/ui/alert";
 import { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 
@@ -43,10 +42,6 @@ const steps = [
 
 const BusinessRegistrationForm = () => {
 
-    const [nombre, setNombre] = useState("")
-    const [email, setEmail] = useState("")
-    const [mensaje, setMensaje] = useState("")
-    const [estado, setEstado] = useState<"ok" | "error" | null>(null)
     const [currentStep, setCurrentStep] = useState(1);
     const [formData, setFormData] = useState({
     
