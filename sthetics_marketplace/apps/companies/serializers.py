@@ -56,3 +56,9 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model=Category
         fields = '__all__'
+
+class VerificationQuerySerializer(serializers.Serializer):
+    email = serializers.EmailField(required=False)
+    nit = serializers.CharField(required=False)
+    phone_business = serializers.CharField(required=False)
+    phone = serializers.CharField(required=False)

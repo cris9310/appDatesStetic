@@ -2,6 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { User, Building, Clock, MapPin, Phone, Mail, Calendar, Check, Star, CreditCard } from "lucide-react";
 
+import { useEffect } from 'react';
+
 interface ReviewStepProps {
   data: any;
   updateData: (newData: any) => void;
@@ -14,6 +16,10 @@ const FormReviewFinalBusiness = ({ data }: ReviewStepProps) => {
     return data.available_days.map((dayId: number) => daysOfWeek[dayId]).join(", ");
   };
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+  
   return (
     <div className="space-y-8 animate-fade-in">
       <div className="text-center mb-8">

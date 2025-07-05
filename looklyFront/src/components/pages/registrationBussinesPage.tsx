@@ -4,11 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
+import { motion } from 'framer-motion';
+import useToast from "react-hook-toast";
+import "react-hook-toast/dist/style.css";
 
 import FormOwnerBusiness from "../forms/formsBusiness/formOwnerBusiness";
 import FormNewBusiness from "../forms/formsBusiness/formNewBusiness";
 import FormDetailsHoursBusiness from "../forms/formsBusiness/formDetailsHoursBusiness";
 import FormReviewFinalBusiness from "../forms/formsBusiness/formReviewFinalBusiness";
+import RegistrationSuccessScreen from "../forms/formsBusiness/formRegistrationSuccess";
+import RegistrationSuccessMessage from "../forms/formsBusiness/formRegistrationMessage";
 const steps = [
   { 
     id: 1, 
@@ -43,6 +48,12 @@ const steps = [
 const BusinessRegistrationForm = () => {
 
     const [currentStep, setCurrentStep] = useState(1);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submissionProgress, setSubmissionProgress] = useState(0);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const  toast  = useToast();
+
+    
     const [formData, setFormData] = useState({
     
     
@@ -104,14 +115,59 @@ const BusinessRegistrationForm = () => {
   };
 
   const handleSubmit = async () => {
-    
-      console.log(formData)
+    setIsSubmitting(true);
+    setSubmissionProgress(0);
+
+    try {
+      // Simulate progress steps
+      const progressSteps = [
+        { progress: 20, message: "Validando información personal..." },
+        { progress: 40, message: "Procesando datos del negocio..." },
+        { progress: 60, message: "Configurando horarios..." },
+        { progress: 80, message: "Creando perfil profesional..." },
+        { progress: 100, message: "¡Registro completado exitosamente!" }
+      ];
+
+      for (const step of progressSteps) {
+        await new Promise(resolve => setTimeout(resolve, 800));
+        setSubmissionProgress(step.progress);
+        
+        if (step.progress === 100) {
+          setIsSuccess(true);
+          toast({
+            title: "Tu cuenta profesional ha sido creada correctamente",
+            type: "success",
+            interval: 5000,
+          });
+        }
+      }
+
+      console.log("Submitting form data:", formData);
+    } catch (error) {
+      toast({
+        title: "Hubo un problema al crear tu cuenta. Por favor intenta nuevamente.",
+        type: "error",
+        interval: 5000,
+      });
+    } finally {
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setSubmissionProgress(0);
+      }, 2000);
+    }
     };
 
   const progress = (currentStep / steps.length) * 100;
-  console.log(progress);
-  return (
+   if (isSuccess) {
+    return <RegistrationSuccessScreen />;
+  }
 
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
     <div className="min-h-screen bg-gray-50 py-8 px-4">
       <div className="max-w-2xl mx-auto">
         <Card className="mb-6 bg-white shadow border border-gray-300 border-t-4 border-t-violet-600">
@@ -182,6 +238,10 @@ const BusinessRegistrationForm = () => {
                     Siguiente
                     <ArrowRight className="w-4 h-4" />
                   </Button>
+                  <RegistrationSuccessMessage
+                    isSubmitting={isSubmitting}
+                    submissionProgress={submissionProgress}
+                  />
                 </div>
             </form>
             </FormProvider>
@@ -190,6 +250,7 @@ const BusinessRegistrationForm = () => {
         </Card>
       </div>
     </div>
+    </motion.div>
   );
 }
 

@@ -4,6 +4,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent } from "@/components/ui/card";
 import { Clock, Calendar, Gift } from "lucide-react";
 
+import { useEffect } from 'react';
+
 interface BusinessDetailsStepProps {
   data: any;
   updateData: (newData: any) => void;
@@ -32,6 +34,9 @@ const FormDetailsHoursBusiness  = ({ data, updateData }: BusinessDetailsStepProp
     updateData({ available_days: newDays });
   };
   
+  useEffect(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, []);
 
   return (
     <div className="space-y-8 animate-fade-in">

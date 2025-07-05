@@ -1,6 +1,8 @@
 
 import React from 'react';
 import { useFormContext } from "react-hook-form";
+import { useEffect, useState } from "react";
+import axios from "axios"
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,6 +19,11 @@ interface FormOwnerBusinessProps {
 
 const FormOwnerBusiness: React.FC<FormOwnerBusinessProps> = ({ data, updateData }) => {
   const { register, formState: { errors } } = useFormContext();
+  const [checkingValues, setcheckingValues] = useState(false);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
   return (
     <div className="space-y-6 animate-fade-in ">
@@ -127,6 +134,18 @@ const FormOwnerBusiness: React.FC<FormOwnerBusinessProps> = ({ data, updateData 
                   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                   message: "Correo electrónico no válido",
                 },
+
+                validate: async (value) => {
+                setcheckingValues(true)
+                try {
+                  const res = await axios.get(`http://127.0.0.1:8000/companies/verify-forms/?email=${value}`)
+                  return res.data.exists ? "Este email ya está registrado" : true
+                } catch (error) {
+                  return "Error al verificar el email"
+                } finally {
+                  setcheckingValues(false)
+                }
+              },
               })}
               id="email"
               name="email"
@@ -159,6 +178,17 @@ const FormOwnerBusiness: React.FC<FormOwnerBusinessProps> = ({ data, updateData 
                   value: /^\d{10}$/,
                   message: "Debe tener exactamente 10 dígitos numéricos",
                 },
+                validate: async (value) => {
+                setcheckingValues(true)
+                try {
+                  const res = await axios.get(`http://127.0.0.1:8000/companies/verify-forms/?phone=${value}`)
+                  return res.data.exists ? "Este teléfono ya está registrado" : true
+                } catch (error) {
+                  return "Error al verificar el teléfono"
+                } finally {
+                  setcheckingValues(false)
+                }
+              },
                })}
               id="phone"
               name="phone"

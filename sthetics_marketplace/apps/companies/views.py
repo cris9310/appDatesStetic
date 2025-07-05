@@ -1,7 +1,11 @@
-from rest_framework import viewsets, generics
+from rest_framework import viewsets
+from rest_framework.permissions import AllowAny
+from rest_framework.generics import GenericAPIView
+from rest_framework.response import Response
+
+
 from .models import *
 from .serializers import *
-from rest_framework.permissions import IsAuthenticated, AllowAny
 
 # Crud de ciudades
 class CityViewSet(viewsets.ModelViewSet):
@@ -24,3 +28,24 @@ class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [AllowAny] 
+
+
+class VerifiedFormsViewSet(GenericAPIView):
+    serializer_class = VerificationQuerySerializer
+
+    def get(self, request):
+        email = request.query_params.get('email', None)
+        nit = request.query_params.get('nit', None)
+        phone_business = request.query_params.get('phone_business', None)
+        phone = request.query_params.get('phone', None)
+
+        if email:
+           exists = User.objects.filter(email=email).exists()
+        elif nit:
+            exists = Location.objects.filter(nit=nit).exists()
+        elif phone_business:
+            exists = Location.objects.filter(phone_business=phone_business).exists()
+        else:
+            exists = User.objects.filter(phone=phone).exists()
+
+        return Response({'exists': exists})

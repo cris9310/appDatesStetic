@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useFormContext } from "react-hook-form";
+import axios from "axios"
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -21,6 +22,8 @@ const FormNewBusiness: React.FC<FormNewBusinessProps> = ({ data, updateData }) =
 
       return localStorage.getItem("categoriaSeleccionada") || "";
     });
+
+    const [checkingValues, setcheckingValues] = useState(false)
 
     const [categorias, setCategorias] = useState([]);
 
@@ -72,6 +75,9 @@ const FormNewBusiness: React.FC<FormNewBusinessProps> = ({ data, updateData }) =
         }
     }, [ciudadSeleccionada]);
 
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, []);
 
   return (
     <div className="space-y-6 animate-fade-in ">
@@ -158,7 +164,19 @@ const FormNewBusiness: React.FC<FormNewBusinessProps> = ({ data, updateData }) =
               Nit
             </Label>
             <Input
-              {...register('nit', { required: 'Nit requerido' })}
+              {...register('nit', { required: 'Nit requerido',
+                validate: async (value) => {
+                setcheckingValues(true)
+                try {
+                  const res = await axios.get(`http://127.0.0.1:8000/companies/verify-forms/?nit=${value}`)
+                  return res.data.exists ? "Este nit ya está registrado" : true
+                } catch (error) {
+                  return "Error al verificar el nit"
+                } finally {
+                  setcheckingValues(false)
+                }
+              },
+               })}
               id="nit"
               name="nit"
               type="text"
@@ -191,6 +209,18 @@ const FormNewBusiness: React.FC<FormNewBusinessProps> = ({ data, updateData }) =
                   value: /^\d{10}$/,
                   message: "Debe tener exactamente 10 dígitos numéricos",
                 },
+                validate: async (value) => {
+                setcheckingValues(true)
+                try {
+                  const res = await axios.get(`http://127.0.0.1:8000/companies/verify-forms/?phone_business=${value}`)
+                  return res.data.exists ? "Este teléfono ya está registrado" : true
+                } catch (error) {
+                  return "Error al verificar el teléfono"
+                } finally {
+                  setcheckingValues(false)
+                }
+              },
+                
                })}
               id="phone_business"
               name="phone_business"
