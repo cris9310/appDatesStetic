@@ -20,10 +20,6 @@ class LocationViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny] 
     #permission_classes = [IsAuthenticated] modificar esto mas adelante
 
-    def perform_create(self, serializer):
-        # Asignamos local al usuario
-        serializer.save(owner=self.request.user)
-
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer

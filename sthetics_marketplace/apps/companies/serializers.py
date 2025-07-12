@@ -7,6 +7,8 @@ from apps.services.models import Service
 from apps.users.serializers import ProfessionalRegisterSerializer
 from .models import *
 
+import json
+
 
 class CitySerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,25 +21,25 @@ class LocationSerializers(serializers.ModelSerializer):
     total_reviews = serializers.SerializerMethodField()
     services = serializers.SerializerMethodField()
     image = serializers.ImageField()
-    city = serializers.StringRelatedField()
-    rut_document = serializers.ImageField()
-    category = serializers.StringRelatedField()
+    city = serializers.PrimaryKeyRelatedField(queryset=City.objects.all())
+    rut_document = serializers.FileField()
+    category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
 
     class Meta:
         model=Location
         fields = '__all__'
     
     def create(self, validated_data):
-        owner_data = {
-        'name': validated_data.pop('name'),
-        'email': validated_data.pop('email'),
-        'phone':validated_data.pop('phone'),
-        'password':validated_data.pop('password'),
-        'profile_image': validated_data.pop('profile_image'),
-        }
+        owner_data = validated_data.pop("owner")
         user = User.objects.create_user(**owner_data)
         business = Location.objects.create(owner=user, **validated_data)
         return business
+    
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['city'] = instance.city.name
+        representation['category'] = instance.category.name
+        return representation
 
     @extend_schema_field(serializers.FloatField())
     def get_average_score(self, obj):

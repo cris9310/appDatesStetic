@@ -1,6 +1,12 @@
-
-
+import  AboutUsModal from "@/components/modalLandingPages/AboutUsModal";
+import  ContactModal from "@/components/modalLandingPages/ContactUsModal";
+import  CookiesModal from "@/components/modalLandingPages/CookiesModal";
+import  PrivacyPolicyModal from "@/components/modalLandingPages/PoliticModal";
+import TermsOfServiceModal from "@/components/modalLandingPages/TermOfServiceModal";
 const Footer = () => {
+
+  
+
   return (
     <footer className="bg-indigo-950 text-white">
       <div className="container mx-auto px-4">
@@ -19,24 +25,55 @@ const Footer = () => {
             <ul className="space-y-2">
               <li><a href="#" className="text-gray-300 hover:text-violet-600 transition-colors">Descargar</a></li>
               <li><a href="#" className="text-gray-300 hover:text-violet-600 transition-colors">Características</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-violet-600 transition-colors">Términos de Servicio</a></li>
+              <li>
+                <TermsOfServiceModal>
+                  <button className="text-gray-300 hover:text-violet-600 transition-colors text-left">
+                    Términos de Servicio
+                  </button>
+                </TermsOfServiceModal>
+              </li>
             </ul>
           </div>
           
           <div>
             <h4 className="font-semibold text-lg mb-4">Compañía</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-300 hover:text-violet-600 transition-colors">Sobre Nosotros</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-violet-600 transition-colors">Contacto</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-violet-600 transition-colors">Política de Privacidad</a></li>
+              <li>
+                <AboutUsModal>
+                  <button className="text-gray-300 hover:text-violet-600 transition-colors text-left">
+                    Sobre Nosotros
+                  </button>
+                </AboutUsModal>
+              </li> 
+              <li>
+                <ContactModal>
+                  <button className="text-gray-300 hover:text-violet-600 transition-colors text-left">
+                    Contacto
+                  </button>
+                </ContactModal>
+              </li>
+              <li>
+                <PrivacyPolicyModal>
+                  <button className="text-gray-300 hover:text-violet-600 transition-colors text-left">
+                    Política de Privacidad
+                  </button>
+                </PrivacyPolicyModal>
+                
+              </li>
             </ul>
           </div>
           
           <div>
             <h4 className="font-semibold text-lg mb-4">Legal</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-300 hover:text-violet-600 transition-colors">Cookies</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-violet-600 transition-colors">Licencias</a></li>
+              <li>
+                <CookiesModal>
+                  <button className="text-gray-300 hover:text-violet-600 transition-colors text-left">
+                    Cookies
+                  </button>
+                </CookiesModal>
+              </li>
+              
             </ul>
           </div>
         </div>

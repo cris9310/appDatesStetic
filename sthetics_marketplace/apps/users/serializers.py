@@ -3,7 +3,7 @@ from rest_framework import serializers
 from django.utils import timezone
 from datetime import timedelta
 
-from .models import User
+from .models import User 
 
 #Nos sirve para mostrar la información del usuario, quitando los datos sensibles como la contraseña
 class UserSerializer(serializers.ModelSerializer):

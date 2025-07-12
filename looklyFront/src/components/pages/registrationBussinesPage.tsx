@@ -115,11 +115,37 @@ const BusinessRegistrationForm = () => {
   };
 
   const handleSubmit = async () => {
+    
+    const formDataToSend = new FormData();
+    formDataToSend.append('owner.name', formData.name);
+    formDataToSend.append('owner.email', formData.email);
+    formDataToSend.append('owner.phone', formData.phone);
+    formDataToSend.append('owner.password', formData.password);
+
+    if (formData.profile_image) {
+      formDataToSend.append('owner.profile_image', formData.profile_image);
+    }
+    formDataToSend.append('category', formData.category);
+    formDataToSend.append('image', formData.image ? formData.image : 'null');
+    formDataToSend.append('city', formData.city); 
+    formDataToSend.append('rut_document', formData.rut_document ? formData.rut_document : 'null');
+    formDataToSend.append('nit', formData.nit);
+    formDataToSend.append('name_business', formData.name_business);
+    formDataToSend.append('address', formData.address);
+    formDataToSend.append('phone_business', formData.phone_business);
+    formDataToSend.append('opening_time', formData.opening_time);
+    formDataToSend.append('closing_time', formData.closing_time);
+    formDataToSend.append("available_days", formData.available_days);
+    formDataToSend.append('is_verified', formData.is_verified ? 'true' : 'false');
+    
     setIsSubmitting(true);
     setSubmissionProgress(0);
-
     try {
-      // Simulate progress steps
+        await fetch("http://127.0.0.1:8000/companies/locations/", {
+          method: "POST",
+          body: formDataToSend,
+        });
+      
       const progressSteps = [
         { progress: 20, message: "Validando información personal..." },
         { progress: 40, message: "Procesando datos del negocio..." },
@@ -141,8 +167,7 @@ const BusinessRegistrationForm = () => {
           });
         }
       }
-
-      console.log("Submitting form data:", formData);
+      
     } catch (error) {
       toast({
         title: "Hubo un problema al crear tu cuenta. Por favor intenta nuevamente.",

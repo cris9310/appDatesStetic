@@ -38,11 +38,11 @@ const LocationList = () => {
           </p>
         </div>
 
-        <div className="w-full mx-auto">
+        <div className="overflow-hidden w-full">
           <Carousel className="">
-            <CarouselContent className="justify-center m-10">
+            <CarouselContent className="flex gap-4 px-4">
               {locations.map((salon) => (
-                <CarouselItem key={salon.id} className="basis-1/4 ">
+                <CarouselItem key={salon.id} className="basis-1/4 mb-6">
                   <Card className="w-[300px] h-[350px] m-0 p-0 overflow-hidden shadow hover:shadow-lg transition-all duration-300 group border-0 bg-white rounded-xl">
                   <CardHeader className=" relative overflow-hidden  p-0 h-[180px]" >
                     <span className="bg-violet-600/70 text-neutral-50 px-2 py-1 rounded-lg text-xs font-medium
@@ -51,13 +51,13 @@ const LocationList = () => {
                         </span>
                       <img 
                         src={salon.image} 
-                        alt={salon.name} 
+                        alt={salon.name_business} 
                         className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
                       />
                       
                   </CardHeader>
                   <CardContent className="w-full h-[80px]  ml-3 p-0">
-                    <h3 className=" font-semibold text-base text-indigo-950">{salon.name} ({salon.total_reviews})</h3>
+                    <h3 className=" font-semibold text-base text-indigo-950">{salon.name_business} ({salon.total_reviews})</h3>
                     <span className=" text-gray-500 text-xs mt-1">{capitalizeFirstLetter(salon.address)} -  {salon.city}</span>
                     <div className="mt-2 flex flex-wrap gap-1">
                         <Badge variant="outline" className="bg-violet-600 text-xs text-neutral-50 px-1.5 py-0.5">
