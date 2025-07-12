@@ -30,11 +30,11 @@ const RegistrationSuccessMessage= ({
       <Card className="w-full max-w-md mx-4 shadow-2xl border-0">
         <CardContent className="p-8 text-center">
           <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
-            <h2 className={`text-3xl font-bold text-violet-600`}>
-            <span className="text-violet-600">Look</span>ly
+            <h2 className={`text-3xl font-bold text-[#6c63ff]`}>
+            <span className="text-[#6c63ff]">Look</span>ly
           </h2>
           </div>
-          <h3 className="text-xl font-bold text-violet-600 mb-4">
+          <h3 className="text-xl font-bold text-[#6c63ff] mb-4">
             Creando tu cuenta profesional...
           </h3>
           

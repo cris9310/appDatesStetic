@@ -18,13 +18,13 @@ const PrivacyPolicyModal = ({ children }: PrivacyPolicyModalProps) => {
       </DialogTrigger>
       <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto bg-white border border-gray-300 transition-shadow">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-violet-600">
+          <DialogTitle className="text-2xl font-bold text-[#6c63ff]">
             Política de Privacidad
           </DialogTitle>
         </DialogHeader>
         <div className="space-y-4 text-sm text-gray-700">
           <section>
-            <h3 className="font-semibold text-lg mb-2 text-violet-600">1. Información que Recopilamos</h3>
+            <h3 className="font-semibold text-lg mb-2 text-[#6c63ff]">1. Información que Recopilamos</h3>
             <p>Recopilamos información que usted nos proporciona directamente, como cuando crea una cuenta, reserva una cita o se comunica con nosotros. Esto incluye:</p>
             <ul className="list-disc pl-6 mt-2 space-y-1">
               <li>Nombre, email y número de teléfono</li>
@@ -34,7 +34,7 @@ const PrivacyPolicyModal = ({ children }: PrivacyPolicyModalProps) => {
           </section>
           
           <section>
-            <h3 className="font-semibold text-lg mb-2 text-violet-600">2. Cómo Usamos su Información</h3>
+            <h3 className="font-semibold text-lg mb-2 text-[#6c63ff]">2. Cómo Usamos su Información</h3>
             <p>Utilizamos la información recopilada para:</p>
             <ul className="list-disc pl-6 mt-2 space-y-1">
               <li>Procesar y gestionar sus reservas</li>
@@ -46,7 +46,7 @@ const PrivacyPolicyModal = ({ children }: PrivacyPolicyModalProps) => {
           </section>
           
           <section>
-            <h3 className="font-semibold text-lg mb-2 text-violet-600">3. Compartir Información</h3>
+            <h3 className="font-semibold text-lg mb-2 text-[#6c63ff]">3. Compartir Información</h3>
             <p>No vendemos ni alquilamos su información personal. Podemos compartir información únicamente en los siguientes casos:</p>
             <ul className="list-disc pl-6 mt-2 space-y-1">
               <li>Con salones de belleza para procesar sus reservas</li>
@@ -56,12 +56,12 @@ const PrivacyPolicyModal = ({ children }: PrivacyPolicyModalProps) => {
           </section>
           
           <section>
-            <h3 className="font-semibold text-lg mb-2 text-violet-600">4. Seguridad de los Datos</h3>
+            <h3 className="font-semibold text-lg mb-2 text-[#6c63ff]">4. Seguridad de los Datos</h3>
             <p>Implementamos medidas de seguridad técnicas y organizativas para proteger su información personal contra acceso no autorizado, alteración, divulgación o destrucción.</p>
           </section>
           
           <section>
-            <h3 className="font-semibold text-lg mb-2 text-violet-600">5. Sus Derechos</h3>
+            <h3 className="font-semibold text-lg mb-2 text-[#6c63ff]">5. Sus Derechos</h3>
             <p>Usted tiene derecho a:</p>
             <ul className="list-disc pl-6 mt-2 space-y-1">
               <li>Acceder a su información personal</li>

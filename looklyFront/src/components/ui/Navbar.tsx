@@ -28,21 +28,24 @@ export default function Navbar() {
         scrolled ? "py-2 bg-neutral-50": "py-4 bg-transparent shadow-md backdrop-blur-md"
       }`}
     >
-      <h1 className={`text-2xl font-bold ${scrolled ? "text-indigo-950": "text-neutral-50"}`}>
-            <span className="text-violet-600">Look</span>ly
-      </h1>
+      {scrolled ? (
+        <img src="/src/assets/Logo_negro.png" alt="Logo grande" width="120" />
+         
+      ) : (
+        <img src="/src/assets/Logo_blanco.png" alt="Logo pequeño" width="120" />
+      )}
       <div className=" md:flex space-x-8">
           <a href="#home" className={`font-bold ${
-        scrolled ? "text-violet-600  hover:text-indigo-950 transition-colors": "text-neutral-50 hover:text-violet-600/90 transition-colors"}`}>Inicio</a>
+        scrolled ? "text-[#6c63ff]  hover:text-indigo-950 transition-colors": "text-neutral-50 hover:text-[#6c63ff]/90 transition-colors"}`}>Inicio</a>
           <a href="#features" className={`font-bold ${
-        scrolled ? "text-violet-600  hover:text-indigo-950 transition-colors": "text-neutral-50 hover:text-violet-600/90 transition-colors"}`}>Características</a>
+        scrolled ? "text-[#6c63ff]  hover:text-indigo-950 transition-colors": "text-neutral-50 hover:text-[#6c63ff]/90 transition-colors"}`}>Características</a>
           <a href="#salons" className={`font-bold ${
-        scrolled ? "text-violet-600  hover:text-indigo-950 transition-colors": "text-neutral-50 hover:text-violet-600/90 transition-colors"}`}>Salones</a>
+        scrolled ? "text-[#6c63ff]  hover:text-indigo-950 transition-colors": "text-neutral-50 hover:text-[#6c63ff]/90 transition-colors"}`}>Salones</a>
           <a href="#download" className={`font-bold ${
-        scrolled ? "text-violet-600  hover:text-indigo-950 transition-colors": "text-neutral-50 hover:text-violet-600/90 transition-colors"}`}>Descargar</a>
+        scrolled ? "text-[#6c63ff]  hover:text-indigo-950 transition-colors": "text-neutral-50 hover:text-[#6c63ff]/90 transition-colors"}`}>Descargar</a>
       </div>
       <div>
-          <Button onClick={handleClick} className="bg-violet-600 hover:bg-violet-600/90 text-neutral-50 rounded-full px-6">
+          <Button onClick={handleClick} className="bg-[#6c63ff] hover:bg-[#6c63ff]/90 text-neutral-50 rounded-full px-6">
             Registra tu negocio
           </Button>
         </div>

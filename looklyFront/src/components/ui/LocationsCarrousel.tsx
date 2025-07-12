@@ -45,7 +45,7 @@ const LocationList = () => {
                 <CarouselItem key={salon.id} className="basis-1/4 mb-6">
                   <Card className="w-[300px] h-[350px] m-0 p-0 overflow-hidden shadow hover:shadow-lg transition-all duration-300 group border-0 bg-white rounded-xl">
                   <CardHeader className=" relative overflow-hidden  p-0 h-[180px]" >
-                    <span className="bg-violet-600/70 text-neutral-50 px-2 py-1 rounded-lg text-xs font-medium
+                    <span className="bg-[#6c63ff]/70 text-neutral-50 px-2 py-1 rounded-lg text-xs font-medium
                         absolute top-2 right-2"> 
                           ★ {salon.average_score}
                         </span>
@@ -60,14 +60,14 @@ const LocationList = () => {
                     <h3 className=" font-semibold text-base text-indigo-950">{salon.name_business} ({salon.total_reviews})</h3>
                     <span className=" text-gray-500 text-xs mt-1">{capitalizeFirstLetter(salon.address)} -  {salon.city}</span>
                     <div className="mt-2 flex flex-wrap gap-1">
-                        <Badge variant="outline" className="bg-violet-600 text-xs text-neutral-50 px-1.5 py-0.5">
+                        <Badge variant="outline" className="bg-[#6c63ff] text-xs text-neutral-50 px-1.5 py-0.5">
                           {salon.category}
                         </Badge>
                     </div>
                   </CardContent>
                   <CardFooter className="h-[30px] justify-center">
-                    <Button variant="default" className="bg-violet-600 text-neutral-50 transition-transform duration-500 w-[100px]
-                    hover:bg-violet-600/70">
+                    <Button variant="default" className="bg-[#6c63ff] text-neutral-50 transition-transform duration-500 w-[100px]
+                    hover:bg-[#6c63ff]/70">
                       Reservar
                     </Button>
                   </CardFooter>
@@ -76,8 +76,8 @@ const LocationList = () => {
               ))}
             </CarouselContent>
             <div className="flex justify-center gap-2 mt-6">
-              <CarouselPrevious className="static transform-none mx-2 bg-violet-600 text-neutral-50 hover:bg-violet-600/90 border-none" />
-              <CarouselNext className="static transform-none mx-2 bg-violet-600 text-neutral-50 hover:bg-violet-600/90 border-none" />
+              <CarouselPrevious className="static transform-none mx-2 bg-[#6c63ff] text-neutral-50 hover:bg-[#6c63ff]/90 border-none" />
+              <CarouselNext className="static transform-none mx-2 bg-[#6c63ff] text-neutral-50 hover:bg-[#6c63ff]/90 border-none" />
             </div>
           </Carousel>
         </div>

@@ -14,7 +14,7 @@ const RegistrationSuccessScreen = () => {
       <Card className="max-w-2xl w-full shadow-2xl border-0 overflow-hidden">
         <CardContent className="p-12 text-center">
           <div className="animate-scale-in">
-            <div className="w-24 h-24 bg-violet-600 rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="w-24 h-24 bg-[#6c63ff] rounded-full flex items-center justify-center mx-auto mb-6">
               <CheckCircle className="w-12 h-12 text-indigo-50" />
             </div>
             
@@ -33,11 +33,11 @@ const RegistrationSuccessScreen = () => {
             <div className="bg-white rounded-xl p-6 mb-8">
               <div className="flex items-center justify-center gap-3 mb-4">
                 <Check className="w-5 h-5 text-indigo-950" />
-                <span className="font-semibold text-violet-600">Acceso a tu panel de control</span>
+                <span className="font-semibold text-[#6c63ff]">Acceso a tu panel de control</span>
               </div>
               <div className="flex items-center justify-center gap-3">
                 <Check className="w-5 h-5 text-indigo-950" />
-                <span className="font-semibold text-violet-600">14 días de prueba gratuita activados</span>
+                <span className="font-semibold text-[#6c63ff]">14 días de prueba gratuita activados</span>
               </div>
             </div>
             
@@ -57,7 +57,7 @@ const RegistrationSuccessScreen = () => {
                   </div>
                 </Button>
                 
-                <Button className="bg-violet-600 hover:bg-violet-600/90 text-neutral-50 flex items-center gap-2 px-6">
+                <Button className="bg-[#6c63ff] hover:bg-[#6c63ff]/90 text-neutral-50 flex items-center gap-2 px-6">
                   <Download className="h-5 w-5" />
                   <div className="text-left">
                     <div className="text-xs">Descargar en Google Play</div>

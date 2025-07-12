@@ -95,7 +95,7 @@ const FormNewBusiness: React.FC<FormNewBusinessProps> = ({ data, updateData }) =
         <Card className="hover:shadow-md transition-shadow border border-gray-300">
           <CardContent className="p-3 pt-0 ">
             <Label htmlFor="name_business" className="flex items-center gap-2 mb-3 font-medium">
-              <Building className="w-5 h-5 text-violet-600" />
+              <Building className="w-5 h-5 text-[#6c63ff]" />
               Nombre de tu negocio
             </Label>
             <Input
@@ -106,7 +106,7 @@ const FormNewBusiness: React.FC<FormNewBusinessProps> = ({ data, updateData }) =
               value={data.name_business}
               onChange={(e) => updateData({ name_business: e.target.value })}
               placeholder="Ingresa el nombre del negocio"
-              className="h-12 border border-gray-300 focus:ring-violet-600 focus:border-violet-600 "
+              className="h-12 border border-gray-300 focus:ring-[#6c63ff] focus:border-[#6c63ff] "
             />
             {errors.name_business && (
 
@@ -124,7 +124,7 @@ const FormNewBusiness: React.FC<FormNewBusinessProps> = ({ data, updateData }) =
         <Card className="hover:shadow-md transition-shadow border border-gray-300">
             <CardContent className="p-3 pt-0">
                 <Label htmlFor="category" className="flex items-center gap-2 mb-3 font-medium">
-                <Scissors className="w-5 h-5 text-violet-600" />
+                <Scissors className="w-5 h-5 text-[#6c63ff]" />
                 Categoría de tu negocio
                 </Label>
 
@@ -137,17 +137,17 @@ const FormNewBusiness: React.FC<FormNewBusinessProps> = ({ data, updateData }) =
                 required
                 
                 >
-                <SelectTrigger className="w-[275px] h-[50px] border border-gray-300 focus:ring-violet-600 focus:border-violet-600 text-gray-500">
+                <SelectTrigger className="w-[275px] h-[50px] border border-gray-300 focus:ring-[#6c63ff] focus:border-[#6c63ff] text-gray-500">
                     <SelectValue placeholder="Seleccione una categoría" />
                 </SelectTrigger>
 
-                <SelectContent className="border border-gray-300 focus:ring-violet-600 focus:border-violet-600 text-gray-500 bg-white">
+                <SelectContent className="border border-gray-300 focus:ring-[#6c63ff] focus:border-[#6c63ff] text-gray-500 bg-white">
                     <SelectGroup>
                     {categorias.map(cat => (
                         <SelectItem
                         key={cat.id}
                         value={String(cat.id)} // asegúrate que sea string si el valor es numérico
-                        className="hover:text-violet-600"
+                        className="hover:text-[#6c63ff]"
                         >
                         {cat.name}
                         </SelectItem>
@@ -160,7 +160,7 @@ const FormNewBusiness: React.FC<FormNewBusinessProps> = ({ data, updateData }) =
         <Card className="hover:shadow-md transition-shadow border border-gray-300">
           <CardContent className="p-3 pt-0 ">
             <Label htmlFor="nit" className="flex items-center gap-2 mb-3 font-medium">
-              <CreditCard className="w-5 h-5 text-violet-600" />
+              <CreditCard className="w-5 h-5 text-[#6c63ff]" />
               Nit
             </Label>
             <Input
@@ -183,7 +183,7 @@ const FormNewBusiness: React.FC<FormNewBusinessProps> = ({ data, updateData }) =
               value={data.nit}
               onChange={(e) => updateData({ nit: e.target.value })}
               placeholder="Número de identificación tributaria"
-              className="h-12 border border-gray-300 focus:ring-violet-600 focus:border-violet-600 "
+              className="h-12 border border-gray-300 focus:ring-[#6c63ff] focus:border-[#6c63ff] "
             />
             {errors.nit && (
 
@@ -200,7 +200,7 @@ const FormNewBusiness: React.FC<FormNewBusinessProps> = ({ data, updateData }) =
         <Card className="hover:shadow-md transition-shadow border border-gray-300">
           <CardContent className="p-3 pt-0 ">
             <Label htmlFor="phone_business" className="flex items-center gap-2 mb-3 font-medium">
-              <Phone className="w-5 h-5 text-violet-600" />
+              <Phone className="w-5 h-5 text-[#6c63ff]" />
               Teléfono del local
             </Label>
             <Input
@@ -228,7 +228,7 @@ const FormNewBusiness: React.FC<FormNewBusinessProps> = ({ data, updateData }) =
               value={data.phone_business}
               onChange={(e) => updateData({ phone_business: e.target.value })}
               placeholder="Número de teléfono"
-              className="h-12 border border-gray-300 focus:ring-violet-600 focus:border-violet-600 "
+              className="h-12 border border-gray-300 focus:ring-[#6c63ff] focus:border-[#6c63ff] "
             />
             {errors.phone_business && (
 
@@ -253,7 +253,7 @@ const FormNewBusiness: React.FC<FormNewBusinessProps> = ({ data, updateData }) =
         <Card className="hover:shadow-md transition-shadow border border-gray-300">
             <CardContent className="p-3 pt-0">
                 <Label htmlFor="city" className="flex items-center gap-2 mb-3 font-medium">
-                <MapPin className="w-5 h-5 text-violet-600" />
+                <MapPin className="w-5 h-5 text-[#6c63ff]" />
                 Ciudad
                 </Label>
                 
@@ -265,17 +265,17 @@ const FormNewBusiness: React.FC<FormNewBusinessProps> = ({ data, updateData }) =
                 }}
                 
                 >
-                <SelectTrigger className="w-[275px] h-[50px] border border-gray-300 focus:ring-violet-600 focus:border-violet-600 text-gray-500">
+                <SelectTrigger className="w-[275px] h-[50px] border border-gray-300 focus:ring-[#6c63ff] focus:border-[#6c63ff] text-gray-500">
                     <SelectValue placeholder="Seleccione una ciudad" />
                 </SelectTrigger>
 
-                <SelectContent className="border border-gray-300 focus:ring-violet-600 focus:border-violet-600 text-gray-500 bg-white">
+                <SelectContent className="border border-gray-300 focus:ring-[#6c63ff] focus:border-[#6c63ff] text-gray-500 bg-white">
                     <SelectGroup>
                     {ciudad.map(cat => (
                         <SelectItem
                         key={cat.id}
                         value={String(cat.id)} // asegúrate que sea string si el valor es numérico
-                        className="hover:text-violet-600"
+                        className="hover:text-[#6c63ff]"
                         >
                         {cat.name}
                         </SelectItem>
@@ -289,7 +289,7 @@ const FormNewBusiness: React.FC<FormNewBusinessProps> = ({ data, updateData }) =
         <Card className="hover:shadow-md transition-shadow border border-gray-300">
           <CardContent className="p-3 pt-0 ">
             <Label htmlFor="address" className="flex items-center gap-2 mb-3 font-medium">
-              <MapPin className="w-5 h-5 text-violet-600" />
+              <MapPin className="w-5 h-5 text-[#6c63ff]" />
               Dirección
             </Label>
             <Input
@@ -300,7 +300,7 @@ const FormNewBusiness: React.FC<FormNewBusinessProps> = ({ data, updateData }) =
               value={data.address}
               onChange={(e) => updateData({ address: e.target.value })}
               placeholder="Direción de tu negocio"
-              className="h-12 border border-gray-300 focus:ring-violet-600 focus:border-violet-600 "
+              className="h-12 border border-gray-300 focus:ring-[#6c63ff] focus:border-[#6c63ff] "
               
             />
             {errors.address && (
@@ -322,15 +322,15 @@ const FormNewBusiness: React.FC<FormNewBusinessProps> = ({ data, updateData }) =
 
       <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-6">
 
-        <Card className="border-dashed border-2 border-gray-300 hover:border-violet-600 transition-colors">
+        <Card className="border-dashed border-2 border-gray-300 hover:border-[#6c63ff] transition-colors">
         <CardContent className="p-6 text-center">
           <div className="flex flex-col items-center space-y-4">
-            <div className="w-20 h-20 bg-violet-600/10 rounded-full flex items-center justify-center">
-              <FileText className="w-10 h-10 text-violet-600" />
+            <div className="w-20 h-20 bg-[#6c63ff]/10 rounded-full flex items-center justify-center">
+              <FileText className="w-10 h-10 text-[#6c63ff]" />
             </div>
             <div>
               <Label htmlFor="rut_document" className="cursor-pointer">
-                <div className="text-sm font-medium text-violet-600 hover:text-violet-600/80">
+                <div className="text-sm font-medium text-[#6c63ff] hover:text-[#6c63ff]/80">
                   Documento RUT
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
@@ -381,15 +381,15 @@ const FormNewBusiness: React.FC<FormNewBusinessProps> = ({ data, updateData }) =
         </CardContent>
       </Card>
 
-      <Card className="border-dashed border-2 border-gray-300 hover:border-violet-600 transition-colors">
+      <Card className="border-dashed border-2 border-gray-300 hover:border-[#6c63ff] transition-colors">
         <CardContent className="p-6 text-center">
           <div className="flex flex-col items-center space-y-4">
-            <div className="w-20 h-20 bg-violet-600/10 rounded-full flex items-center justify-center">
-              <ImageIcon className="w-10 h-10 text-violet-600" />
+            <div className="w-20 h-20 bg-[#6c63ff]/10 rounded-full flex items-center justify-center">
+              <ImageIcon className="w-10 h-10 text-[#6c63ff]" />
             </div>
             <div>
               <Label htmlFor="image" className="cursor-pointer">
-                <div className="text-sm font-medium text-violet-600 hover:text-violet-600/80">
+                <div className="text-sm font-medium text-[#6c63ff] hover:text-[#6c63ff]/80">
                   Imagen del Negocio
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
@@ -447,12 +447,12 @@ const FormNewBusiness: React.FC<FormNewBusinessProps> = ({ data, updateData }) =
       
       <div className="bg-violet-50 border border-violet-200 rounded-lg p-6">
         <div className="flex items-start gap-3">
-          <div className="w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center flex-shrink-0">
+          <div className="w-8 h-8 bg-[#6c63ff] rounded-full flex items-center justify-center flex-shrink-0">
             <Building className="w-4 h-4 text-white" />
           </div>
           <div className="">
             <h4 className="font-medium text-indigo-950 mb-1">Visibilidad del Negocio</h4>
-            <p className="text-sm text-violet-600">
+            <p className="text-sm text-[#6c63ff]">
               Esta información aparecerá en tu perfil público y ayudará a los clientes a encontrarte y contactarte.
             </p>
           </div>

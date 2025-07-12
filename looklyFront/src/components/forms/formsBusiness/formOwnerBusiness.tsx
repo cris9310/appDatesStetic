@@ -36,15 +36,15 @@ const FormOwnerBusiness: React.FC<FormOwnerBusinessProps> = ({ data, updateData 
         </p>
       </div>
 
-      <Card className="border-dashed border-2 border-gray-300 hover:border-violet-600 transition-colors">
+      <Card className="border-dashed border-2 border-gray-300 hover:border-[#6c63ff] transition-colors">
         <CardContent className="p-6 text-center">
           <div className="flex flex-col items-center space-y-4">
-            <div className="w-20 h-20 bg-violet-600/10 rounded-full flex items-center justify-center">
-              <Camera className="w-10 h-10 text-violet-600" />
+            <div className="w-20 h-20 bg-[#6c63ff]/10 rounded-full flex items-center justify-center">
+              <Camera className="w-10 h-10 text-[#6c63ff]" />
             </div>
             <div>
               <Label htmlFor="profile_image" className="cursor-pointer">
-                <div className="text-sm font-medium text-violet-600 hover:text-violet-600/80">
+                <div className="text-sm font-medium text-[#6c63ff] hover:text-[#6c63ff]/80">
                   Subir foto de perfil (opcional)
                 </div>
                 <div className="text-xs text-gray-500 mt-1">
@@ -97,7 +97,7 @@ const FormOwnerBusiness: React.FC<FormOwnerBusinessProps> = ({ data, updateData 
         <Card className="hover:shadow-md transition-shadow border border-gray-300">
           <CardContent className="p-3 pt-0 ">
             <Label htmlFor="name" className="flex items-center gap-2 mb-3 font-medium">
-              <User className="w-5 h-5 text-violet-600" />
+              <User className="w-5 h-5 text-[#6c63ff]" />
               Nombre Completo
             </Label>
             <Input
@@ -109,7 +109,7 @@ const FormOwnerBusiness: React.FC<FormOwnerBusinessProps> = ({ data, updateData 
               value={data.name || ""}
               onChange={(e) => updateData({ name: e.target.value })}
               placeholder="Ingresa tu nombre completo"
-              className="h-12 border border-gray-300 focus:ring-violet-600 focus:border-violet-600 "
+              className="h-12 border border-gray-300 focus:ring-[#6c63ff] focus:border-[#6c63ff] "
             />
             {errors.name && (
               <div className="mt-4 p-3 bg-red-50 rounded-lg">
@@ -124,7 +124,7 @@ const FormOwnerBusiness: React.FC<FormOwnerBusinessProps> = ({ data, updateData 
         <Card className="hover:shadow-md transition-shadow border border-gray-300">
           <CardContent className="p-3 pt-0 ">
             <Label htmlFor="email" className="flex items-center gap-2 mb-3 font-medium">
-              <Mail className="w-5 h-5 text-violet-600" />
+              <Mail className="w-5 h-5 text-[#6c63ff]" />
               Correo Electrónico
             </Label>
             <Input
@@ -154,7 +154,7 @@ const FormOwnerBusiness: React.FC<FormOwnerBusinessProps> = ({ data, updateData 
               value={data.email || ""}
               onChange={(e) => updateData({ email: e.target.value })}
               placeholder="tu@email.com"
-              className="h-12 border border-gray-300 focus:ring-violet-600 focus:border-violet-600"
+              className="h-12 border border-gray-300 focus:ring-[#6c63ff] focus:border-[#6c63ff]"
             />
             {errors.email && (
               <div className="mt-4 p-3 bg-red-50 rounded-lg">
@@ -169,7 +169,7 @@ const FormOwnerBusiness: React.FC<FormOwnerBusinessProps> = ({ data, updateData 
         <Card className="hover:shadow-md transition-shadow border border-gray-300">
           <CardContent className="p-3 pt-0 ">
             <Label htmlFor="phone" className="flex items-center gap-2 mb-3 font-medium">
-              <Phone className="w-5 h-5 text-violet-600" />
+              <Phone className="w-5 h-5 text-[#6c63ff]" />
               Número de Teléfono
             </Label>
             <Input
@@ -198,7 +198,7 @@ const FormOwnerBusiness: React.FC<FormOwnerBusinessProps> = ({ data, updateData 
               onChange={(e) => updateData({ phone: e.target.value })}
               placeholder="3001234567"
               maxLength={10}
-              className="h-12 border border-gray-300 focus:ring-violet-600 focus:border-violet-600"
+              className="h-12 border border-gray-300 focus:ring-[#6c63ff] focus:border-[#6c63ff]"
             />
             {errors.phone && (
 
@@ -218,7 +218,7 @@ const FormOwnerBusiness: React.FC<FormOwnerBusinessProps> = ({ data, updateData 
         <Card className="hover:shadow-md transition-shadow border border-gray-300">
           <CardContent className="p-3 pt-0 ">
             <Label htmlFor="password" className="flex items-center gap-2 mb-3 font-medium">
-              <Lock className="w-5 h-5 text-violet-600" />
+              <Lock className="w-5 h-5 text-[#6c63ff]" />
               Contraseña
             </Label>
             <Input
@@ -237,7 +237,7 @@ const FormOwnerBusiness: React.FC<FormOwnerBusinessProps> = ({ data, updateData 
               value={data.password || ""}
               onChange={(e) => updateData({ password: e.target.value })}
               placeholder="Crea una contraseña segura"
-              className="h-12 border border-gray-300 focus:ring-violet-600 focus:border-violet-600 "
+              className="h-12 border border-gray-300 focus:ring-[#6c63ff] focus:border-[#6c63ff] "
             />
             {errors.password && (
 
@@ -259,12 +259,12 @@ const FormOwnerBusiness: React.FC<FormOwnerBusinessProps> = ({ data, updateData 
       </div>
       <div className="bg-violet-50 border border-violet-200 rounded-lg p-6">
         <div className="flex items-start gap-3">
-          <div className="w-8 h-8 bg-violet-600 rounded-full flex items-center justify-center flex-shrink-0">
+          <div className="w-8 h-8 bg-[#6c63ff] rounded-full flex items-center justify-center flex-shrink-0">
             <User className="w-4 h-4 text-white" />
           </div>
           <div className="">
             <h4 className="font-medium text-indigo-950 mb-1">Cuenta profesional</h4>
-            <p className="text-sm text-violet-600">
+            <p className="text-sm text-[#6c63ff]">
               Esta información será utilizada para crear tu perfil profesional en la plataforma. 
               Podrás editarla más tarde desde tu panel de administración.
             </p>

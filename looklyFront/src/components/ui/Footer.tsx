@@ -12,9 +12,7 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid  md:grid-cols-4 gap-8 py-12">
           <div>
-            <h3 className="text-2xl font-bold mb-4">
-              <span className="text-violet-600">Look</span>ly
-            </h3>
+            <img src="/src/assets/Logo_blanco.png" alt="Logo pequeño" width="100" />
             <p className="text-gray-300 mb-4">
               Reserva tus citas de belleza y estética en segundos con nuestra aplicación móvil.
             </p>
@@ -23,11 +21,11 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-lg mb-4">App</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-gray-300 hover:text-violet-600 transition-colors">Descargar</a></li>
-              <li><a href="#" className="text-gray-300 hover:text-violet-600 transition-colors">Características</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-[#6c63ff] transition-colors">Descargar</a></li>
+              <li><a href="#" className="text-gray-300 hover:text-[#6c63ff] transition-colors">Características</a></li>
               <li>
                 <TermsOfServiceModal>
-                  <button className="text-gray-300 hover:text-violet-600 transition-colors text-left">
+                  <button className="text-gray-300 hover:text-[#6c63ff] transition-colors text-left">
                     Términos de Servicio
                   </button>
                 </TermsOfServiceModal>
@@ -40,21 +38,21 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <AboutUsModal>
-                  <button className="text-gray-300 hover:text-violet-600 transition-colors text-left">
+                  <button className="text-gray-300 hover:text-[#6c63ff] transition-colors text-left">
                     Sobre Nosotros
                   </button>
                 </AboutUsModal>
               </li> 
               <li>
                 <ContactModal>
-                  <button className="text-gray-300 hover:text-violet-600 transition-colors text-left">
+                  <button className="text-gray-300 hover:text-[#6c63ff] transition-colors text-left">
                     Contacto
                   </button>
                 </ContactModal>
               </li>
               <li>
                 <PrivacyPolicyModal>
-                  <button className="text-gray-300 hover:text-violet-600 transition-colors text-left">
+                  <button className="text-gray-300 hover:text-[#6c63ff] transition-colors text-left">
                     Política de Privacidad
                   </button>
                 </PrivacyPolicyModal>
@@ -68,7 +66,7 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <CookiesModal>
-                  <button className="text-gray-300 hover:text-violet-600 transition-colors text-left">
+                  <button className="text-gray-300 hover:text-[#6c63ff] transition-colors text-left">
                     Cookies
                   </button>
                 </CookiesModal>

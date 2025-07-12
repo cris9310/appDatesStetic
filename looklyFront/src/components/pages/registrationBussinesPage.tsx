@@ -20,28 +20,28 @@ const steps = [
     title: "Información Personal", 
     description: "Datos del profesional",
     icon: User,
-    color: "bg-violet-600"
+    color: "bg-[#6c63ff]"
   },
   { 
     id: 2, 
     title: "Información del Negocio", 
     description: "Datos del local",
     icon: Building,
-    color: "bg-violet-600"
+    color: "bg-[#6c63ff]"
   },
   { 
     id: 3, 
     title: "Detalles del Negocio", 
     description: "Horarios y configuración",
     icon: Clock,
-    color: "bg-violet-600"
+    color: "bg-[#6c63ff]"
   },
   { 
     id: 4, 
     title: "Revisión", 
     description: "Confirma tu información",
     icon: Eye,
-    color: "bg-violet-600"
+    color: "bg-[#6c63ff]"
   }
 ];
 
@@ -195,10 +195,10 @@ const BusinessRegistrationForm = () => {
     >
     <div className="min-h-screen bg-gray-50 py-8 px-4">
       <div className="max-w-2xl mx-auto">
-        <Card className="mb-6 bg-white shadow border border-gray-300 border-t-4 border-t-violet-600">
+        <Card className="mb-6 bg-white shadow border border-gray-300 border-t-4 border-t-[#6c63ff]">
           <CardHeader className="text-center">
             <CardTitle className="md:text-2xl sm:text-xl text-indigo-950 flex text-center">
-              Registro de Negocio &nbsp;<p className="text-violet-600"> - {steps[currentStep - 1].description}</p> 
+              Registro de Negocio &nbsp;<p className="text-[#6c63ff]"> - {steps[currentStep - 1].description}</p> 
             </CardTitle>
             <div className="mt-4">
               <Progress value={progress} className="h-2" />
@@ -207,15 +207,15 @@ const BusinessRegistrationForm = () => {
                   <div
                     key={step.id}
                     className={`flex items-center ${
-                      step.id <= currentStep ? "text-violet-600" : "text-gray-400"
+                      step.id <= currentStep ? "text-[#6c63ff]" : "text-gray-400"
                     }`}
                   >
                     <div
                       className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium ${
                         step.id < currentStep
-                          ? "bg-violet-600 text-white"
+                          ? "bg-[#6c63ff] text-white"
                           : step.id === currentStep
-                          ? "bg-violet-600 text-white"
+                          ? "bg-[#6c63ff] text-white"
                           : "bg-gray-200 text-gray-400"
                       }`}
                     >
@@ -241,7 +241,7 @@ const BusinessRegistrationForm = () => {
                     type="button"
                     onClick={prevStep}
                     disabled={currentStep === 1}
-                    className="bg-violet-600 hover:bg-violet-600/90 text-white flex items-center gap-2"
+                    className="bg-[#6c63ff] hover:bg-[#6c63ff]/90 text-white flex items-center gap-2"
                   >
                     <ArrowLeft className="w-4 h-4" />
                     Anterior
@@ -249,7 +249,7 @@ const BusinessRegistrationForm = () => {
                   
                   <Button
                     type="submit"
-                    className={`bg-violet-600 hover:bg-violet-600/90 text-white flex items-center gap-2 ${progress === 100 ? "" : "hidden"}`}
+                    className={`bg-[#6c63ff] hover:bg-[#6c63ff]/90 text-white flex items-center gap-2 ${progress === 100 ? "" : "hidden"}`}
                   >
                     Completar Registro
                     <Check className="w-4 h-4" />
@@ -258,7 +258,7 @@ const BusinessRegistrationForm = () => {
                     type="button"
                     onClick={nextStep}
                     disabled={!canProceed}
-                    className={`bg-violet-600 hover:bg-violet-600/90 text-white flex items-center gap-2 ${progress < 100 ? "" : "hidden"}`}
+                    className={`bg-[#6c63ff] hover:bg-[#6c63ff]/90 text-white flex items-center gap-2 ${progress < 100 ? "" : "hidden"}`}
                   >
                     Siguiente
                     <ArrowRight className="w-4 h-4" />

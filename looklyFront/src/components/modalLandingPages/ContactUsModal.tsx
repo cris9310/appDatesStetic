@@ -20,7 +20,7 @@ const ContactModal = ({ children }: ContactModalProps) => {
       </DialogTrigger>
       <DialogContent className="max-w-2xl bg-white border border-gray-300 transition-shadow">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-violet-600">
+          <DialogTitle className="text-2xl font-bold text-[#6c63ff]">
             Contacto
           </DialogTitle>
         </DialogHeader>
@@ -28,18 +28,18 @@ const ContactModal = ({ children }: ContactModalProps) => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-violet-600" />
+                <Mail className="w-5 h-5 text-[#6c63ff]" />
                 <div>
-                  <p className="font-semibold text-violet-600">Email</p>
+                  <p className="font-semibold text-[#6c63ff]">Email</p>
                   <p>contacto@lookly.com</p>
                   <p>soporte@lookly.com</p>
                 </div>
               </div>
               
               <div className="flex items-center gap-3">
-                <Phone className="w-5 h-5 text-violet-600" />
+                <Phone className="w-5 h-5 text-[#6c63ff]" />
                 <div>
-                  <p className="font-semibold text-violet-600">Teléfono</p>
+                  <p className="font-semibold text-[#6c63ff]">Teléfono</p>
                   <p>+57 3182141934</p>
                 </div>
               </div>
@@ -47,9 +47,9 @@ const ContactModal = ({ children }: ContactModalProps) => {
             
             <div className="space-y-4">
               <div className="flex items-center gap-3">
-                <Clock className="w-5 h-5 text-violet-600" />
+                <Clock className="w-5 h-5 text-[#6c63ff]" />
                 <div>
-                  <p className="font-semibold text-violet-600">Horario de Atención</p>
+                  <p className="font-semibold text-[#6c63ff]">Horario de Atención</p>
                   <p>Lunes - Viernes: 9:00 - 18:00</p>
                   <p>Sábados: 10:00 - 16:00</p>
                 </div>
@@ -58,10 +58,10 @@ const ContactModal = ({ children }: ContactModalProps) => {
           </div>
           
           <div className="border-t pt-4">
-            <h3 className="font-semibold text-lg mb-2 text-violet-600">¿Cómo podemos ayudarte?</h3>
+            <h3 className="font-semibold text-lg mb-2 text-[#6c63ff]">¿Cómo podemos ayudarte?</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <p className="font-medium text-violet-600">Para Usuarios:</p>
+                <p className="font-medium text-[#6c63ff]">Para Usuarios:</p>
                 <ul className="text-xs space-y-1 text-gray-600">
                   <li>• Ayuda con reservas</li>
                   <li>• Problemas técnicos</li>
@@ -69,7 +69,7 @@ const ContactModal = ({ children }: ContactModalProps) => {
                 </ul>
               </div>
               <div>
-                <p className="font-medium text-violet-600">Para Negocios:</p>
+                <p className="font-medium text-[#6c63ff]">Para Negocios:</p>
                 <ul className="text-xs space-y-1 text-gray-600">
                   <li>• Registro de establecimientos</li>
                   <li>• Gestión de servicios</li>

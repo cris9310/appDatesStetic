@@ -53,7 +53,7 @@ const FormDetailsHoursBusiness  = ({ data, updateData }: BusinessDetailsStepProp
       <Card className=" border border-gray-300 hover:shadow-md transition-shadow">
         <CardContent className="p-6">
           <Label className="flex items-center gap-2 mb-4 font-medium text-lg">
-            <Clock className="w-5 h-5 text-violet-600" />
+            <Clock className="w-5 h-5 text-[#6c63ff]" />
             Horario de Funcionamiento
           </Label>
           
@@ -68,7 +68,7 @@ const FormDetailsHoursBusiness  = ({ data, updateData }: BusinessDetailsStepProp
                   type="time"
                   value={data.opening_time}
                   onChange={(e) => updateData({ opening_time: e.target.value })}
-                  className="h-12 pl-10 focus:ring-violet-600 focus:border-violet-600 border border-gray-300"
+                  className="h-12 pl-10 focus:ring-[#6c63ff] focus:border-[#6c63ff] border border-gray-300"
                 />
                 <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
               </div>
@@ -84,7 +84,7 @@ const FormDetailsHoursBusiness  = ({ data, updateData }: BusinessDetailsStepProp
                   type="time"
                   value={data.closing_time}
                   onChange={(e) => updateData({ closing_time: e.target.value })}
-                  className="h-12 pl-10 focus:ring-violet-600 focus:border-violet-600 border border-gray-300"
+                  className="h-12 pl-10 focus:ring-[#6c63ff] focus:border-[#6c63ff] border border-gray-300"
                 />
                 <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
               </div>
@@ -103,7 +103,7 @@ const FormDetailsHoursBusiness  = ({ data, updateData }: BusinessDetailsStepProp
       <Card className="hover:shadow-md transition-shadow border border-gray-300">
         <CardContent className="p-6">
           <Label className="flex items-center gap-2 mb-4 font-medium text-lg">
-            <Calendar className="w-5 h-5 text-violet-600" />
+            <Calendar className="w-5 h-5 text-[#6c63ff]" />
             Días Laborales
           </Label>
           
@@ -114,7 +114,7 @@ const FormDetailsHoursBusiness  = ({ data, updateData }: BusinessDetailsStepProp
                   id={`day-${day.id}`}
                   checked={data.available_days.includes(day.id)}
                   onCheckedChange={(checked) => handleDayToggle(day.id, checked as boolean)}
-                  className="data-[state=checked]:bg-violet-600 data-[state=checked]:border-violet-600 data-[state=checked]:text-white"
+                  className="data-[state=checked]:bg-[#6c63ff] data-[state=checked]:border-[#6c63ff] data-[state=checked]:text-white"
                 />
                 <Label htmlFor={`day-${day.id}`} className="text-sm font-medium cursor-pointer flex items-center gap-2">
                   <span className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center text-xs font-bold">
@@ -145,7 +145,7 @@ const FormDetailsHoursBusiness  = ({ data, updateData }: BusinessDetailsStepProp
       <Card className="bg-gradient-to-r from-purple-50 to-blue-50 border-purple-200">
         <CardContent className="p-6">
           <div className="flex items-start gap-4">
-            <div className="w-12 h-12 bg-gradient-to-r from-violet-600 to-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
+            <div className="w-12 h-12 bg-gradient-to-r from-[#6c63ff] to-blue-500 rounded-full flex items-center justify-center flex-shrink-0">
               <Gift className="w-6 h-6 text-white" />
             </div>
             <div>
@@ -157,15 +157,15 @@ const FormDetailsHoursBusiness  = ({ data, updateData }: BusinessDetailsStepProp
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-violet-600 rounded-full"></div>
+                  <div className="w-2 h-2 bg-[#6c63ff] rounded-full"></div>
                   <span>Panel de administración completo</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-violet-600 rounded-full"></div>
+                  <div className="w-2 h-2 bg-[#6c63ff] rounded-full"></div>
                   <span>Gestión de citas ilimitadas</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-violet-600 rounded-full"></div>
+                  <div className="w-2 h-2 bg-[#6c63ff] rounded-full"></div>
                   <span>Soporte técnico incluido</span>
                 </div>
               </div>
