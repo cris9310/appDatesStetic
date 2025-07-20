@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from rest_framework.permissions import AllowAny
-from rest_framework.generics import GenericAPIView
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.generics import GenericAPIView, ListAPIView
 from rest_framework.response import Response
 
 
@@ -19,6 +19,16 @@ class LocationViewSet(viewsets.ModelViewSet):
     serializer_class = LocationSerializers
     permission_classes = [AllowAny] 
     #permission_classes = [IsAuthenticated] modificar esto mas adelante
+
+class LocationListUserViewSet(ListAPIView):
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializers
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Location.objects.filter(owner =user)
+
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()

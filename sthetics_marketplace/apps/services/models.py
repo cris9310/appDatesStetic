@@ -9,3 +9,6 @@ class Service(models.Model):
     duration_minutes = models.PositiveIntegerField(help_text="Duración en minutos (ej: 30).")
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name } - {self.location}"

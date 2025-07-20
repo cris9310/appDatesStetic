@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 
 import {Carousel, CarouselContent,CarouselItem, CarouselNext, CarouselPrevious} from "@/components/ui/carousel"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 import {capitalizeFirstLetter }from "@/lib/utils"
 
-import { Star, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import axios from "axios";
 
 
@@ -57,8 +57,8 @@ const LocationList = () => {
                       
                   </CardHeader>
                   <CardContent className="w-full h-[80px]  ml-3 p-0">
-                    <h3 className=" font-semibold text-base text-indigo-950">{salon.name_business} ({salon.total_reviews})</h3>
-                    <span className=" text-gray-500 text-xs mt-1">{capitalizeFirstLetter(salon.address)} -  {salon.city}</span>
+                    <h3 className=" font-bold text-base text-indigo-950">{salon.name_business} ({salon.total_reviews})</h3>
+                    <span className=" text-gray-500 text-xs mt-1 inline-flex gap-1"><MapPin size={17}/>{capitalizeFirstLetter(salon.address)} -  {salon.city}</span>
                     <div className="mt-2 flex flex-wrap gap-1">
                         <Badge variant="outline" className="bg-[#6c63ff] text-xs text-neutral-50 px-1.5 py-0.5">
                           {salon.category}

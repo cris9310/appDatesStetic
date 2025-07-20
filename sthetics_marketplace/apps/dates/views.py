@@ -13,6 +13,7 @@ class AppointmentListCreateView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         user = self.request.user
+        print(user)
         if user.role == 'Client':
             return Appointment.objects.filter(client=user)
         elif user.role == 'Professional':

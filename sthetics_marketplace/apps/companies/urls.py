@@ -11,5 +11,6 @@ urlpatterns = [
     path('', include(router.urls)),
     
     path('verify-forms/', VerifiedFormsViewSet.as_view(), name='verify-forms'),
+    path('List-my-locations/', LocationListUserViewSet.as_view(), name='List-my-locations'),
     
 ]

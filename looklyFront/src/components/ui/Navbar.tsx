@@ -12,6 +12,10 @@ export default function Navbar() {
   const handleClick = () => {
     navigate("/register-business");
   };
+  const handleClickAdmin = () => {
+    navigate("/login");
+  };
+  
   
   useEffect(() => {
   const handleScroll = () => {
@@ -48,6 +52,12 @@ export default function Navbar() {
           <Button onClick={handleClick} className="bg-[#6c63ff] hover:bg-[#6c63ff]/90 text-neutral-50 rounded-full px-6">
             Registra tu negocio
           </Button>
+
+          <Button onClick={handleClickAdmin} className="bg-[#6c63ff] hover:bg-[#6c63ff]/90 text-neutral-50 rounded-full px-6">
+            Panel
+          </Button>
+           
+
         </div>
     </nav>
   );
