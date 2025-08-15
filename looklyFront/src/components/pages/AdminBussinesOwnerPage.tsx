@@ -4,123 +4,113 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { 
-  LayoutDashboard, 
-  CalendarDays, 
-  Users, 
-  Scissors, 
-  Settings, 
+import { Calendar } from "@/components/ui/calendar";
+import {
+  LayoutDashboard,
+  CalendarDays,
+  Users,
+  Scissors,
+  Settings,
   Bell,
   Plus,
   Clock,
   DollarSign,
   Eye,
+  Phone,
+  CheckCircle,
+  XCircle,
+  AlertCircle,
+  LogOut,
+  User
 } from "lucide-react";
-
-import {calculosPorDia }from "@/lib/utils"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { calculosPorDia, citasHoyList } from "@/lib/utils"
+import { useParams, useNavigate } from "react-router-dom";
+import api from '@/lib/axios';
 
 const AdminBussinesOwnerPage = () => {
-  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [date, setDate] = useState(new Date());
+  const { id } = useParams();
   const [activeTab, setActiveTab] = useState("dashboard");
   const [citas, setCitas] = useState([]);
-  const [datos, setDatos] = useState([]);
+  const [DatesToday, setDatesToday] = useState([]);
+  const [locationData, setLocationData] = useState({});
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const obtenerCitas = async () => {
-      const token = localStorage.getItem('access');
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 10;
+  const totalPages = Math.ceil(DatesToday.length / rowsPerPage);
+  const startIndex = (currentPage - 1) * rowsPerPage;
+  const currentRows = DatesToday.slice(startIndex, startIndex + rowsPerPage);
 
-      try {
-        const response = await fetch('http://localhost:8000/dates/appointments/', {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        });
-
-        if (!response.ok) {
-          throw new Error('Error al obtener las citas');
-        }
-
-        const data = await response.json();
-        setCitas(data); // Aquí guardas las citas en el estado
-      } catch (err) {
-        setError(err.message);
-      }
-    };
-
-    obtenerCitas();
-  }, []);
-
-
-  useEffect(() => {
-    const getData = async () => {
-      const token = localStorage.getItem('access');
-
-      try {
-        const response = await fetch('http://localhost:8000/dates/appointments/', {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        });
-
-        if (!response.ok) {
-          throw new Error('Error al obtener las citas');
-        }
-
-        const data = await response.json();
-        setCitas(data); 
-      } catch (err) {
-        setError(err.message);
-      }
-    };
-
-    obtenerCitas();
-  }, []);
-
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   const [estadisticas, setEstadisticas] = useState({
     citasHoy: 0,
     citasAyer: 0,
     citasVariacion: '0%',
-    ingresosHoy:0,
-    ingresosAyer:0,
-    ingresosVariacion:'0%',
-    citasMes:0
+    ingresosHoy: 0,
+    ingresosAyer: 0,
+    ingresosVariacion: '0%',
+    citasMes: 0
   });
+
+  // Obtener datos del local
+  useEffect(() => {
+    const idDataLocation = id.split("=")[1];
+    api.get(`/companies/locations/${idDataLocation}`)
+      .then(res => setLocationData(res.data))
+      .catch(err => setError(err.message));
+  }, [id]);
+
+  // Obtener todas las citas
+  useEffect(() => {
+    api.get(`/dates/appointments/?${id}`)
+      .then(res => setCitas(res.data))
+      .catch(err => setError(err.message));
+  }, [id]);
+
+  // Calcular estadísticas
   useEffect(() => {
     if (citas.length > 0) {
-      
-      const resultado = calculosPorDia(citas);
-      setEstadisticas(resultado);
+      setEstadisticas(calculosPorDia(citas));
     }
   }, [citas]);
-  const appointments = [
-    { id: 1, clientName: "María López", service: "Corte de cabello", time: "10:00", status: "confirmed", avatar: "1" },
-    { id: 2, clientName: "Juan Pérez", service: "Barba", time: "11:30", status: "confirmed", avatar: "2" },
-    { id: 3, clientName: "Ana García", service: "Tinte", time: "13:00", status: "pending", avatar: "3" },
-    { id: 4, clientName: "Carlos Rodríguez", service: "Manicura", time: "15:30", status: "confirmed", avatar: "4" },
-    { id: 5, clientName: "Sofia Martínez", service: "Pedicura", time: "17:00", status: "cancelled", avatar: "5" },
-  ];
 
+  // Filtrar citas por fecha
+  useEffect(() => {
+    if (citas.length > 0) {
+      setDatesToday(citasHoyList(citas, selectedDate));
+    }
+  }, [citas, selectedDate]);
+
+  function handleDayClick(date) {
+    setSelectedDate(date);
+  }
   const menuItems = [
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
     { id: "appointments", label: "Citas", icon: CalendarDays },
-    { id: "clients", label: "Clientes", icon: Users },
     { id: "services", label: "Servicios", icon: Scissors },
     { id: "settings", label: "Configuración", icon: Settings },
   ];
 
-    
+
   const stats = [
-    { label: "Citas Hoy", value: estadisticas.citasHoy , change: estadisticas.citasVariacion, icon: CalendarDays },
+    { label: "Citas Hoy", value: estadisticas.citasHoy, change: estadisticas.citasVariacion, icon: CalendarDays },
     { label: "Ingresos", value: estadisticas.ingresosHoy, change: estadisticas.ingresosVariacion, icon: DollarSign },
-    { label: "Clientes", value: "324", change: "+8%", icon: Users},
-    { label: "Servicios", value: "12", change: "0%", icon: Scissors },
+    { label: "Calificación", value: locationData.average_score, change: locationData.total_reviews, icon: Users },
+    { label: "Servicios", value: locationData?.services?.length || 0, change: "", icon: Scissors },
   ];
+
+  const handleLogout = () => {
+
+    localStorage.removeItem("access");
+    localStorage.removeItem("refresh");
+
+    navigate("/login");
+  };
 
 
   return (
@@ -131,12 +121,19 @@ const AdminBussinesOwnerPage = () => {
           <div className="flex items-center space-x-4">
             <img src="/src/assets/Logo_negro.png" alt="Logo grande" width="120" />
           </div>
-          
+
           <div className="flex items-center space-x-4">
-            <Avatar>
-              <AvatarImage src="https://i.pravatar.cc/150?img=12" alt="Avatar" />
-              <AvatarFallback>SD</AvatarFallback>
-            </Avatar>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button className="bg-[#6c63ff] hover:bg-[#6c63ff]/90 text-neutral-50  px-6">
+                  <User /> Hola {locationData?.owner?.name?.split(" ")[0] || "Usuario"}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className=" bg-[#6c63ff] hover:bg-[#6c63ff]/90 text-neutral-50">
+                <DropdownMenuLabel onClick={handleLogout} className="flex items-center gap-4 h-7 mr-2 cursor-pointer" > <LogOut className="w-4" />  Salir</DropdownMenuLabel>
+
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </header>
@@ -146,8 +143,8 @@ const AdminBussinesOwnerPage = () => {
         <aside className="w-72 border-gray-300 border-r border-border h-[calc(100vh-81px)]">
           <div className="p-6">
             <div className="mb-6">
-              <h2 className="text-lg font-semibold text-indigo-950 mb-1">Salón Belleza Total</h2>
-              <p className="text-sm  text-gray-600">Calle Principal 123, Ciudad</p>
+              <h2 className="text-lg font-semibold text-indigo-950 mb-1">{locationData.name_business}</h2>
+              <p className="text-sm  text-gray-600">{locationData.address}</p>
             </div>
 
             <nav className="space-y-2">
@@ -157,11 +154,10 @@ const AdminBussinesOwnerPage = () => {
                   <button
                     key={item.id}
                     onClick={() => setActiveTab(item.id)}
-                    className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-left transition-colors ${
-                      activeTab === item.id 
-                        ? "bg-[#6c63ff] text-neutral-50" 
-                        : "text-indigo-950 hover:text-neutral-50 hover:bg-[#6c63ff]"
-                    }`}
+                    className={`w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-left transition-colors ${activeTab === item.id
+                      ? "bg-[#6c63ff] text-neutral-50"
+                      : "text-indigo-950 hover:text-neutral-50 hover:bg-[#6c63ff]"
+                      }`}
                   >
                     <Icon className="h-5 w-5" />
                     <span className="font-medium">{item.label}</span>
@@ -194,7 +190,7 @@ const AdminBussinesOwnerPage = () => {
             <div className="space-y-6">
               <div className="flex items-center justify-between">
                 <h1 className="text-3xl font-bold text-indigo-950">Dashboard</h1>
-                
+
               </div>
 
               {/* Stats Grid */}
@@ -226,10 +222,10 @@ const AdminBussinesOwnerPage = () => {
                   <CardHeader className="pb-3">
                     <div className="flex items-center justify-between">
                       <CardTitle className="text-lg font-semibold text-indigo-950">Citas de Hoy</CardTitle>
-                      <Button variant="outline" size="sm" 
-                      className="bg-[#6c63ff] hover:bg-[#6c63ff]/90 text-neutral-50  px-6"
-                      key={'appointments'}
-                    onClick={() => setActiveTab('appointments')}>
+                      <Button variant="outline" size="sm"
+                        className="bg-[#6c63ff] hover:bg-[#6c63ff]/90 text-neutral-50  px-6"
+                        key={'appointments'}
+                        onClick={() => setActiveTab('appointments')}>
                         <Eye className="h-4 w-4 mr-2" />
                         Ver todas
                       </Button>
@@ -240,29 +236,29 @@ const AdminBussinesOwnerPage = () => {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {appointments.slice(0, 4).map((appointment) => (
+                      {currentRows.slice(0, 4).map((appointment) => (
                         <div key={appointment.id} className="flex items-center space-x-4 p-3 rounded-lg border bg-white border-gray-300">
                           <Avatar className="h-10 w-10">
-                            <AvatarImage src={`https://i.pravatar.cc/150?img=${appointment.avatar}`} alt={appointment.clientName} />
-                            <AvatarFallback>{appointment.clientName.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                            <AvatarImage src={`https://i.pravatar.cc/150?img=${appointment.client_data.profile_image}`} alt={appointment.client_data.name} />
+                            <AvatarFallback>{appointment.client_data.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
                           </Avatar>
                           <div className="flex-1 min-w-0">
-                            <p className="font-medium text-indigo-950">{appointment.clientName}</p>
+                            <p className="font-medium text-indigo-950">{appointment.client_data.name}</p>
                             <div className="flex items-center space-x-2 text-sm text-gray-600">
                               <Clock className="h-3 w-3 text-[#6c63ff]" />
-                              <span>{appointment.time}</span>
+                              <span>{appointment.service_data.duration_minutes}</span>
                               <span className="text-[#6c63ff]">•</span>
-                              <span>{appointment.service}</span>
+                              <span>{appointment.service_data.name}</span>
                             </div>
                           </div>
                           <div>
-                            {appointment.status === 'confirmed' && (
+                            {appointment.status === 'Completado' && (
                               <Badge className="bg-green-100 text-green-700 hover:bg-green-100">Confirmada</Badge>
                             )}
-                            {appointment.status === 'pending' && (
+                            {appointment.status === 'Pendiente' && (
                               <Badge variant="secondary" className="bg-yellow-100 text-yellow-700 hover:bg-yellow-100">Pendiente</Badge>
                             )}
-                            {appointment.status === 'cancelled' && (
+                            {appointment.status === 'Cancelado' && (
                               <Badge variant="destructive" className="bg-red-100 text-red-700 hover:bg-red-100">Cancelada</Badge>
                             )}
                           </div>
@@ -301,15 +297,211 @@ const AdminBussinesOwnerPage = () => {
 
           {activeTab === "appointments" && (
             <div className="space-y-6">
-              <h1 className="text-3xl font-bold text-foreground">Gestión de Citas</h1>
-              <p className="text-muted-foreground">Contenido de citas aquí...</p>
-            </div>
-          )}
+              <div className="flex items-center justify-between">
+                <div>
+                  <h1 className="text-3xl font-bold text-indigo-950">Gestión de Citas</h1>
+                </div>
+              </div>
 
-          {activeTab === "clients" && (
-            <div className="space-y-6">
-              <h1 className="text-3xl font-bold text-foreground">Clientes</h1>
-              <p className="text-muted-foreground">Contenido de clientes aquí...</p>
+              <div className="grid grid-cols-4 ">
+                <Card className="border shadow-sm bg-white border-gray-300">
+                  <CardContent className="p-6 ">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-indigo-950 mb-1 font-bold">Hoy</p>
+                        <p className="text-2xl font-bold text-[#6c63ff]">{DatesToday.length}</p>
+                      </div>
+                      <div className={`p-3 rounded-full bg-muted/50 text-[#6c63ff] `}>
+                        <CalendarDays className="h-6 w-6" />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border shadow-sm bg-white border-gray-300 ml-8">
+                  <CardContent className="p-6 ">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-indigo-950 mb-1 font-bold">Confirmadas</p>
+                        <p className="text-2xl font-bold text-green-600">{DatesToday.filter(a => a.status === "Completado").length}</p>
+                      </div>
+                      <div className={`p-3 rounded-full bg-muted/50 text-green-600 `}>
+                        <CheckCircle className="h-6 w-6" />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border shadow-sm bg-white border-gray-300 ml-8">
+                  <CardContent className="p-6 ">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-indigo-950 mb-1 font-bold">Pendientes</p>
+                        <p className="text-2xl font-bold text-yellow-600">{DatesToday.filter(a => a.status === "Pendiente").length}</p>
+                      </div>
+                      <div className={`p-3 rounded-full bg-muted/50 text-yellow-600 `}>
+                        <AlertCircle className="h-6 w-6" />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border shadow-sm bg-white border-gray-300 ml-8">
+                  <CardContent className="p-6 ">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-indigo-950 mb-1 font-bold">Canceladas</p>
+                        <p className="text-2xl font-bold text-red-600">{DatesToday.filter(a => a.status === "Cancelado").length}</p>
+                      </div>
+                      <div className={`p-3 rounded-full bg-muted/50 text-red-600 `}>
+                        <XCircle className="h-6 w-6" />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <Card className="border shadow-sm bg-white border-gray-300">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-lg text-indigo-950 font-bold">Lista de Citas</CardTitle>
+                  <CardDescription className=" text-sm text-gray-500">
+                    Todas las citas
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+
+                  <div className="flex">
+                    <div className="w-[31%] ">
+                      <Calendar
+                        mode="single"
+                        selected={selectedDate}
+                        onDayClick={handleDayClick}
+                        className="rounded-md border border-gray-300"
+                      />
+                    </div>
+                    <div className="flex-1 ">
+                      <Table>
+                        <TableHeader>
+                          <TableRow className="border-none" >
+                            <TableHead className=" text-sm text-gray-500" >Cliente</TableHead>
+                            <TableHead className=" text-sm text-gray-500"> Servicio</TableHead>
+                            <TableHead className=" text-sm text-gray-500"> Fecha y Hora</TableHead>
+                            <TableHead className=" text-sm text-gray-500"> Precio</TableHead>
+                            <TableHead className=" text-sm text-gray-500"> Estado</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {DatesToday.map((appointment) => {
+                            const fechaObj = new Date(appointment.datetime);
+                            const fecha = fechaObj.toISOString().split('T')[0]; // YYYY-MM-DD
+                            const hora = fechaObj.toTimeString().split(' ')[0].slice(0, 5); //
+
+                            return (
+                              <TableRow key={appointment.id} >
+                                <TableCell className="border-t border-gray-300">
+                                  <div className="flex items-center space-x-3">
+                                    <Avatar className="h-8 w-8">
+                                      <AvatarImage
+                                        src={`https://i.pravatar.cc/150?img=${appointment.client_data.profile_image}`}
+                                        alt={appointment.client_data.name}
+                                      />
+                                      <AvatarFallback>
+                                        {appointment.client_data.name}
+                                      </AvatarFallback>
+                                    </Avatar>
+                                    <div>
+                                      <p className="font-medium text-foreground">{appointment.client_data.name}</p>
+                                      <div className="flex items-center space-x-2 text-xs text-gray-500">
+                                        <Phone className="h-3 w-3" />
+                                        <span>{appointment.client_data.phone}</span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </TableCell>
+
+                                <TableCell className="border-t border-gray-300">
+                                  <div>
+                                    <p className="font-medium text-foreground">{appointment.service_data.name}</p>
+                                    <p className="text-sm text-gray-500">{appointment.service_data.duration_minutes} min</p>
+                                  </div>
+                                </TableCell>
+
+                                <TableCell className="border-t border-gray-300">
+                                  <div>
+                                    <p className="font-medium text-foreground">{fecha}</p>
+                                    <div className="flex items-center space-x-1 text-sm text-gray-500">
+                                      <Clock className="h-3 w-3" />
+                                      <span>{hora}</span>
+                                    </div>
+                                  </div>
+                                </TableCell>
+
+                                <TableCell className="border-t border-gray-300">
+                                  <p className="font-medium text-foreground">
+
+                                    {parseFloat(String(appointment.service_data.price)).toLocaleString('es-ES', {
+                                      minimumFractionDigits: 2,
+                                      maximumFractionDigits: 2
+                                    })}
+                                  </p>
+                                </TableCell>
+
+                                <TableCell className="border-t border-gray-300">
+                                  {appointment.status === 'Completado' && (
+                                    <Badge className="bg-green-100 text-green-700 hover:bg-green-100">
+                                      <CheckCircle className="h-3 w-3 mr-1" />
+                                      Confirmada
+                                    </Badge>
+                                  )}
+                                  {appointment.status === 'Pendiente' && (
+                                    <Badge variant="secondary" className="bg-yellow-100 text-yellow-700 hover:bg-yellow-100">
+                                      <AlertCircle className="h-3 w-3 mr-1" />
+                                      Pendiente
+                                    </Badge>
+                                  )}
+                                  {appointment.status === 'Cancelado' && (
+                                    <Badge variant="destructive" className="bg-red-100 text-red-700 hover:bg-red-100">
+                                      <XCircle className="h-3 w-3 mr-1" />
+                                      Cancelada
+                                    </Badge>
+                                  )}
+                                </TableCell>
+
+                              </TableRow>
+                            );
+                          })}
+                        </TableBody>
+                      </Table>
+                      <div className="flex justify-end items-center space-x-2 mt-4">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          disabled={currentPage === 1}
+                          onClick={() => setCurrentPage((p) => p - 1)}
+                        >
+                          Anterior
+                        </Button>
+                        <span className="text-sm">
+                          Página {currentPage} de {totalPages}
+                        </span>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          disabled={currentPage === totalPages}
+                          onClick={() => setCurrentPage((p) => p + 1)}
+                        >
+                          Siguiente
+                        </Button>
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                </CardContent>
+              </Card>
+
+
             </div>
           )}
 

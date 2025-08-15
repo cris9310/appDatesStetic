@@ -37,7 +37,7 @@ class Location(models.Model):
         help_text="Días laborales separados por comas (0=Lunes, 6=Domingo)."
     )
     is_verified = models.BooleanField(default=False)
-    
+    is_active = models.BooleanField(default=True)
     
     def __str__(self):
         return f"{self.name_business} - {self.city}"

@@ -13,11 +13,11 @@ class AppointmentListCreateView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        print(user)
         if user.role == 'Client':
             return Appointment.objects.filter(client=user)
         elif user.role == 'Professional':
-            return Appointment.objects.filter(professional=user)
+            local_id = self.request.query_params.get('id')
+            return Appointment.objects.filter(professional=user, location=local_id )
         return Appointment.objects.none()
 
     def perform_create(self, serializer):

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { Building2, MapPin, Users, Clock } from 'lucide-react';
+import { Building2, MapPin, Clock, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -11,79 +11,38 @@ const BusinessSelection = () => {
   const navigate = useNavigate();
 
 
-  
-    useEffect(() => {
-      const getLocations = async () => {
-        const token = localStorage.getItem('access');
-  
-        try {
-          const response = await fetch('http://localhost:8000/companies/List-my-locations/', {
-            method: 'GET',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json'
-            }
-          });
-  
-          if (!response.ok) {
-            throw new Error('Error al obtener locales');
+
+  useEffect(() => {
+    const getLocations = async () => {
+      const token = localStorage.getItem('access');
+
+      try {
+        const response = await fetch('http://localhost:8000/companies/List-my-locations/', {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
           }
-  
-          const data = await response.json();
-          setLocations(data);
-        } catch (err) {
-          setError(err.message);
+        });
+
+        if (!response.ok) {
+          throw new Error('Error al obtener locales');
         }
-      };
-  
-      getLocations();
-    }, []);
 
-  // Mock data - en el futuro esto vendrá de Supabase
-  const businesses = [
-    {
-      id: 1,
-      name: "Salón Belleza Central",
-      address: "Calle Mayor 123, Madrid",
-      type: "Peluquería",
-      employees: 5,
-      status: "active",
-      image: "/placeholder.svg"
-    },
-    {
-      id: 2,
-      name: "Spa Relax Premium",
-      address: "Avenida Sol 456, Madrid",
-      type: "Spa",
-      employees: 8,
-      status: "active",
-      image: "/placeholder.svg"
-    },
-    {
-      id: 3,
-      name: "Barbería Moderna",
-      address: "Plaza Nueva 789, Madrid",
-      type: "Barbería",
-      employees: 3,
-      status: "pending",
-      image: "/placeholder.svg"
-    }
-  ];
+        const data = await response.json();
+        setLocations(data);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
 
-  const handleSelectBusiness = (businessId: number) => {
-    // Navegar al panel del negocio seleccionado
-    navigate(`/business-v2?business=${businessId}`);
-  };
+    getLocations();
+  }, []);
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'active':
-        return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300';
-      case 'pending':
-        return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300';
-      default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300';
-    }
+
+  const handleSelectBusiness = (id: number) => {
+
+    navigate(`/admin-owner-business/id=${id}`);
   };
 
   const getStatusText = (status: string) => {
@@ -100,21 +59,22 @@ const BusinessSelection = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="border-b border-border/50 bg-card/50">
+      <div className="border-b border-gray-300 bg-white ">
         <div className="container mx-auto px-6 py-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl font-bold text-foreground">
+              <h1 className="text-3xl font-bold text-black">
                 Selecciona tu Negocio
               </h1>
-              <p className="text-muted-foreground mt-2">
+              <p className="text-gray-600 mt-2">
                 Elige el local que deseas administrar
               </p>
             </div>
-            <Button 
-              variant="outline" 
-              onClick={() => navigate('/register-business-v2')}
-              className="border-border/50"
+            <Button
+              type="button"
+              onClick={() => navigate('/register-business')}
+              className=" bg-[#6c63ff] transform-translate-y-1/2 text-white hover:bg-[#6c63ff]/80 transition-colors"
+
             >
               <Building2 className="w-4 h-4 mr-2" />
               Agregar Nuevo Local
@@ -124,50 +84,54 @@ const BusinessSelection = () => {
       </div>
 
       {/* Business Grid */}
-      <div className="container mx-auto px-6 py-8">
-        <div className="grid grid-cols-4 gap-6">
+      <div className="w-full px-6 py-8 bg-neutral-100">
+        <div className="grid grid-cols-3 gap-6">
           {locations.map((business) => (
-            <Card 
+
+            <Card
               key={business.id}
-              className="border-border/50 hover:shadow-lg transition-all duration-300 cursor-pointer group"
+              className=" border-gray-200 hover:shadow-lg transition-all duration-300 cursor-pointer group bg-white"
               onClick={() => handleSelectBusiness(business.id)}
             >
               <CardHeader className="pb-4">
                 <div className="flex items-start justify-between">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                    <Building2 className="w-6 h-6 text-primary" />
+                  <div className="w-12 h-12 bg-[#6c63ff]/10 rounded-lg flex items-center justify-center">
+                    <Building2 className="w-6 h-6 text-[#6c63ff]" />
                   </div>
-                  <Badge className={getStatusColor(business.status)}>
-                    {getStatusText(business.status)}
+                  <Badge className={business.is_active = "true" ? 'bg-green-100 text-green-800'
+                    : 'bg-red-100 text-red-800'}>
+                    {business.is_active = "true" ? 'Activo'
+                      : 'Inactivo'}
+
                   </Badge>
                 </div>
-                <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                <CardTitle className="text-xl text-black transition-colors">
                   {business.name_business}
                 </CardTitle>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-600">
                   {business.category}
                 </p>
               </CardHeader>
 
               <CardContent className="space-y-4">
-                <div className="flex items-center text-sm text-muted-foreground">
-                  <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
+                <div className="flex items-center text-sm text-gray-600">
+                  <MapPin className="w-4 h-4 mr-2 flex-shrink-0 text-[#6c63ff]" />
                   <span className="truncate">{business.address}</span>
                 </div>
 
                 <div className="flex items-center justify-between text-sm">
-                  <div className="flex items-center text-muted-foreground">
-                    <Users className="w-4 h-4 mr-2" />
+                  <div className="flex items-center text-gray-600">
+                    <Star className="w-4 h-4 mr-2 text-[#6c63ff]" />
                     <span>{business.average_score} Calificación</span>
                   </div>
-                  <div className="flex items-center text-muted-foreground">
-                    <Clock className="w-4 h-4 mr-2" />
+                  <div className="flex items-center text-gray-600">
+                    <Clock className="w-4 h-4 mr-2 text-[#6c63ff]" />
                     <span>{business.opening_time}-{business.closing_time}</span>
                   </div>
                 </div>
 
-                <Button 
-                  className="w-full mt-4 group-hover:bg-primary/90"
+                <Button
+                  className="w-full mt-4 group-hover:bg-[#6c63ff]/90 bg-[#6c63ff] text-white"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleSelectBusiness(business.id);
@@ -180,13 +144,13 @@ const BusinessSelection = () => {
           ))}
         </div>
 
-        {businesses.length === 0 && (
+        {locations.length === 0 && (
           <div className="text-center py-12">
-            <Building2 className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-foreground mb-2">
+            <Building2 className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+            <h3 className="text-xl font-semtext-gray-600 mb-2">
               No tienes negocios registrados
             </h3>
-            <p className="text-muted-foreground mb-6">
+            <p className="text-gray-600 mb-6">
               Registra tu primer negocio para comenzar a administrarlo
             </p>
             <Button onClick={() => navigate('/register-business')}>

@@ -4,7 +4,7 @@ import { twMerge } from "tailwind-merge"
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
- 
+
 export function capitalizeFirstLetter(str: string): string {
   if (!str) return "";
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -13,12 +13,12 @@ export function capitalizeFirstLetter(str: string): string {
 
 export function calculosPorDia(citas: Cita[]) {
   const hoy = new Date();
-  const hoyTransformada = hoy.toISOString().split('T')[0]; 
+  const hoyTransformada = hoy.toISOString().split('T')[0];
   const ayer = new Date(hoy);
   ayer.setDate(hoy.getDate() - 1);
   const ayerTransformada = ayer.toISOString().split('T')[0];
   const formatoFechaUTC = (fecha) => fecha.toISOString().split('T')[0];
-  const mesActual = hoy.getMonth(); 
+  const mesActual = hoy.getMonth();
   const añoActual = hoy.getFullYear();
 
   const citasDelMes = citas.filter(c => {
@@ -34,7 +34,7 @@ export function calculosPorDia(citas: Cita[]) {
   );
   const totalHoy = citasHoy.length;
   const totalAyer = citasAyer.length;
-  const totalMes= citasDelMes.length;
+  const totalMes = citasDelMes.length;
 
   const sumaPrecioHoy = citasHoy.reduce((acc, c) => {
     const precio = c.service_data?.price ? parseFloat(c.service_data.price) : 0;
@@ -50,7 +50,7 @@ export function calculosPorDia(citas: Cita[]) {
     minimumFractionDigits: 0,
     maximumFractionDigits: 0
   }).format(sumaPrecioHoy);
-  
+
 
   const variacionCitas = totalAyer === 0
     ? (totalHoy > 0 ? 100 : 0)
@@ -70,3 +70,21 @@ export function calculosPorDia(citas: Cita[]) {
     citasMes: totalMes
   };
 }
+
+
+
+
+export function citasHoyList(citas: Cita[], fecha?: Date) {
+  const hoy = fecha || new Date();  // Si no hay fecha, uso hoy
+  const hoyTransformada = hoy.toISOString().split('T')[0];
+
+  const formatoFechaUTC = (fecha: Date) => fecha.toISOString().split('T')[0];
+
+  const citasHoy = citas.filter(c =>
+    formatoFechaUTC(new Date(c.datetime)) === hoyTransformada
+  );
+
+  return citasHoy;
+}
+
+
