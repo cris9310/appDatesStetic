@@ -146,7 +146,7 @@ const FormNewBusiness: React.FC<FormNewBusinessProps> = ({ data, updateData }) =
                     {categorias.map(cat => (
                         <SelectItem
                         key={cat.id}
-                        value={String(cat.id)} // asegúrate que sea string si el valor es numérico
+                        value={String(cat.id)}
                         className="hover:text-[#6c63ff]"
                         >
                         {cat.name}

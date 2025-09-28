@@ -1,4 +1,4 @@
-import { Check, ArrowRight, ArrowLeft, User, Building, Clock, Eye} from "lucide-react";
+import { Check, ArrowRight, ArrowLeft, User, Building, Clock, Eye } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
@@ -15,30 +15,30 @@ import FormReviewFinalBusiness from "../forms/formsBusiness/formReviewFinalBusin
 import RegistrationSuccessScreen from "../forms/formsBusiness/formRegistrationSuccess";
 import RegistrationSuccessMessage from "../forms/formsBusiness/formRegistrationMessage";
 const steps = [
-  { 
-    id: 1, 
-    title: "Información Personal", 
+  {
+    id: 1,
+    title: "Información Personal",
     description: "Datos del profesional",
     icon: User,
     color: "bg-[#6c63ff]"
   },
-  { 
-    id: 2, 
-    title: "Información del Negocio", 
+  {
+    id: 2,
+    title: "Información del Negocio",
     description: "Datos del local",
     icon: Building,
     color: "bg-[#6c63ff]"
   },
-  { 
-    id: 3, 
-    title: "Detalles del Negocio", 
+  {
+    id: 3,
+    title: "Detalles del Negocio",
     description: "Horarios y configuración",
     icon: Clock,
     color: "bg-[#6c63ff]"
   },
-  { 
-    id: 4, 
-    title: "Revisión", 
+  {
+    id: 4,
+    title: "Revisión",
     description: "Confirma tu información",
     icon: Eye,
     color: "bg-[#6c63ff]"
@@ -47,24 +47,24 @@ const steps = [
 
 const BusinessRegistrationForm = () => {
 
-    const [currentStep, setCurrentStep] = useState(1);
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submissionProgress, setSubmissionProgress] = useState(0);
-    const [isSuccess, setIsSuccess] = useState(false);
-    const  toast  = useToast();
+  const [currentStep, setCurrentStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionProgress, setSubmissionProgress] = useState(0);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const toast = useToast();
 
-    
-    const [formData, setFormData] = useState({
-    
-    
+
+  const [formData, setFormData] = useState({
+
+
     email: '',
     name: '',
     phone: '',
     password: '',
     profile_image: null,
-    category:'',
+    category: '',
     image: null,
-    city:'',
+    city: '',
     rut_document: null,
     nit: '',
     name_business: '',
@@ -115,7 +115,7 @@ const BusinessRegistrationForm = () => {
   };
 
   const handleSubmit = async () => {
-    
+
     const formDataToSend = new FormData();
     formDataToSend.append('owner.name', formData.name);
     formDataToSend.append('owner.email', formData.email);
@@ -127,7 +127,7 @@ const BusinessRegistrationForm = () => {
     }
     formDataToSend.append('category', formData.category);
     formDataToSend.append('image', formData.image ? formData.image : 'null');
-    formDataToSend.append('city', formData.city); 
+    formDataToSend.append('city', formData.city);
     formDataToSend.append('rut_document', formData.rut_document ? formData.rut_document : 'null');
     formDataToSend.append('nit', formData.nit);
     formDataToSend.append('name_business', formData.name_business);
@@ -137,15 +137,15 @@ const BusinessRegistrationForm = () => {
     formDataToSend.append('closing_time', formData.closing_time);
     formDataToSend.append("available_days", formData.available_days);
     formDataToSend.append('is_verified', formData.is_verified ? 'true' : 'false');
-    
+
     setIsSubmitting(true);
     setSubmissionProgress(0);
     try {
-        await fetch("http://127.0.0.1:8000/companies/locations/", {
-          method: "POST",
-          body: formDataToSend,
-        });
-      
+      await fetch("http://127.0.0.1:8000/companies/locations/", {
+        method: "POST",
+        body: formDataToSend,
+      });
+
       const progressSteps = [
         { progress: 20, message: "Validando información personal..." },
         { progress: 40, message: "Procesando datos del negocio..." },
@@ -157,7 +157,7 @@ const BusinessRegistrationForm = () => {
       for (const step of progressSteps) {
         await new Promise(resolve => setTimeout(resolve, 800));
         setSubmissionProgress(step.progress);
-        
+
         if (step.progress === 100) {
           setIsSuccess(true);
           toast({
@@ -167,7 +167,7 @@ const BusinessRegistrationForm = () => {
           });
         }
       }
-      
+
     } catch (error) {
       toast({
         title: "Hubo un problema al crear tu cuenta. Por favor intenta nuevamente.",
@@ -180,10 +180,10 @@ const BusinessRegistrationForm = () => {
         setSubmissionProgress(0);
       }, 2000);
     }
-    };
+  };
 
   const progress = (currentStep / steps.length) * 100;
-   if (isSuccess) {
+  if (isSuccess) {
     return <RegistrationSuccessScreen />;
   }
 
@@ -193,88 +193,86 @@ const BusinessRegistrationForm = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
     >
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
-      <div className="max-w-2xl mx-auto">
-        <Card className="mb-6 bg-white shadow border border-gray-300 border-t-4 border-t-[#6c63ff]">
-          <CardHeader className="text-center">
-            <CardTitle className="md:text-2xl sm:text-xl text-indigo-950 flex text-center">
-              Registro de Negocio &nbsp;<p className="text-[#6c63ff]"> - {steps[currentStep - 1].description}</p> 
-            </CardTitle>
-            <div className="mt-4">
-              <Progress value={progress} className="h-2" />
-              <div className="flex justify-between mt-2 text-sm text-gray-500">
-                {steps.map((step) => (
-                  <div
-                    key={step.id}
-                    className={`flex items-center ${
-                      step.id <= currentStep ? "text-[#6c63ff]" : "text-gray-400"
-                    }`}
-                  >
+      <div className="min-h-screen bg-gray-50 py-8 px-4">
+        <div className="max-w-2xl mx-auto">
+          <Card className="mb-6 bg-white shadow border border-gray-300 border-t-4 border-t-[#6c63ff]">
+            <CardHeader className="text-center">
+              <CardTitle className="md:text-2xl sm:text-xl text-indigo-950 flex text-center">
+                Registro de Negocio &nbsp;<p className="text-[#6c63ff]"> - {steps[currentStep - 1].description}</p>
+              </CardTitle>
+              <div className="mt-4">
+                <Progress value={progress} className="h-2" />
+                <div className="flex justify-between mt-2 text-sm text-gray-500">
+                  {steps.map((step) => (
                     <div
-                      className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium ${
-                        step.id < currentStep
-                          ? "bg-[#6c63ff] text-white"
-                          : step.id === currentStep
-                          ? "bg-[#6c63ff] text-white"
-                          : "bg-gray-200 text-gray-400"
-                      }`}
+                      key={step.id}
+                      className={`flex items-center ${step.id <= currentStep ? "text-[#6c63ff]" : "text-gray-400"
+                        }`}
                     >
-                      {step.id < currentStep ? <Check className="w-3 h-3" /> : step.id}
+                      <div
+                        className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium ${step.id < currentStep
+                            ? "bg-[#6c63ff] text-white"
+                            : step.id === currentStep
+                              ? "bg-[#6c63ff] text-white"
+                              : "bg-gray-200 text-gray-400"
+                          }`}
+                      >
+                        {step.id < currentStep ? <Check className="w-3 h-3" /> : step.id}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          </CardHeader>
-        </Card>
+            </CardHeader>
+          </Card>
 
-        <Card   className="border border-gray-300 bg-white ">
-          <CardContent>
-            <FormProvider {...methods}>
-              <form onSubmit={methods.handleSubmit(handleSubmit)}>
-                <div className="transition-all duration-300 ease-in-out ">
-                      {renderStep()}
-                </div>
-                <div className="flex justify-between mt-8">
-                  
-                  <Button
-                    type="button"
-                    onClick={prevStep}
-                    disabled={currentStep === 1}
-                    className="bg-[#6c63ff] hover:bg-[#6c63ff]/90 text-white flex items-center gap-2"
-                  >
-                    <ArrowLeft className="w-4 h-4" />
-                    Anterior
-                  </Button>
-                  
-                  <Button
-                    type="submit"
-                    className={`bg-[#6c63ff] hover:bg-[#6c63ff]/90 text-white flex items-center gap-2 ${progress === 100 ? "" : "hidden"}`}
-                  >
-                    Completar Registro
-                    <Check className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    type="button"
-                    onClick={nextStep}
-                    disabled={!canProceed}
-                    className={`bg-[#6c63ff] hover:bg-[#6c63ff]/90 text-white flex items-center gap-2 ${progress < 100 ? "" : "hidden"}`}
-                  >
-                    Siguiente
-                    <ArrowRight className="w-4 h-4" />
-                  </Button>
-                  <RegistrationSuccessMessage
-                    isSubmitting={isSubmitting}
-                    submissionProgress={submissionProgress}
-                  />
-                </div>
-            </form>
-            </FormProvider>
-            
-          </CardContent>
-        </Card>
+          <Card className="border border-gray-300 bg-white ">
+            <CardContent>
+              <FormProvider {...methods}>
+                <form onSubmit={methods.handleSubmit(handleSubmit)}>
+                  <div className="transition-all duration-300 ease-in-out ">
+                    {renderStep()}
+                  </div>
+                  <div className="flex justify-between mt-8">
+
+                    <Button
+                      type="button"
+                      onClick={prevStep}
+                      disabled={currentStep === 1}
+                      className="bg-[#6c63ff] hover:bg-[#6c63ff]/90 text-white flex items-center gap-2"
+                    >
+                      <ArrowLeft className="w-4 h-4" />
+                      Anterior
+                    </Button>
+
+                    <Button
+                      type="submit"
+                      className={`bg-[#6c63ff] hover:bg-[#6c63ff]/90 text-white flex items-center gap-2 ${progress === 100 ? "" : "hidden"}`}
+                    >
+                      Completar Registro
+                      <Check className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      type="button"
+                      onClick={nextStep}
+                      disabled={!canProceed}
+                      className={`bg-[#6c63ff] hover:bg-[#6c63ff]/90 text-white flex items-center gap-2 ${progress < 100 ? "" : "hidden"}`}
+                    >
+                      Siguiente
+                      <ArrowRight className="w-4 h-4" />
+                    </Button>
+                    <RegistrationSuccessMessage
+                      isSubmitting={isSubmitting}
+                      submissionProgress={submissionProgress}
+                    />
+                  </div>
+                </form>
+              </FormProvider>
+
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    </div>
     </motion.div>
   );
 }

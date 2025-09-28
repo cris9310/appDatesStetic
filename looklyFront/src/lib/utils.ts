@@ -74,17 +74,16 @@ export function calculosPorDia(citas: Cita[]) {
 
 
 
-export function citasHoyList(citas: Cita[], fecha?: Date) {
-  const hoy = fecha || new Date();  // Si no hay fecha, uso hoy
-  const hoyTransformada = hoy.toISOString().split('T')[0];
+export function toLocalDateString(date: string | Date) {
+  const d = new Date(date);
+  return d.toLocaleDateString("en-CA"); // "YYYY-MM-DD"
+}
 
-  const formatoFechaUTC = (fecha: Date) => fecha.toISOString().split('T')[0];
-
-  const citasHoy = citas.filter(c =>
-    formatoFechaUTC(new Date(c.datetime)) === hoyTransformada
-  );
-
-  return citasHoy;
+// Filtra citas de un día concreto
+export function citasHoyList(citas: any[], selectedDate: Date) {
+  if (!selectedDate) return [];
+  const selectedDay = toLocalDateString(selectedDate);
+  return citas.filter(cita => toLocalDateString(cita.datetime) === selectedDay);
 }
 
 

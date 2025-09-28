@@ -1,6 +1,11 @@
 from rest_framework import viewsets, permissions
 from rest_framework.exceptions import PermissionDenied
 
+from rest_framework import generics
+from rest_framework.response import Response
+
+from django.shortcuts import render
+
 
 from .models import Service
 from .serializers import *
@@ -27,3 +32,11 @@ class ServiceViewSet(viewsets.ModelViewSet):
         if location.owner != self.request.user:
             raise PermissionDenied("No puedes crear servicios en un local que no te pertenece.")
         serializer.save()
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        location_id = self.kwargs.get("location_id")
+        if location_id:
+            queryset = queryset.filter(location=location_id)
+        return queryset
+    
