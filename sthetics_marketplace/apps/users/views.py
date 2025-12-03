@@ -37,7 +37,7 @@ class ProfileView(generics.RetrieveAPIView):
 #Listamos los usuarios que son profesionales
 class ProfessionalListView(generics.ListAPIView):
     serializer_class = UserSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return User.objects.filter(role='Professional', is_active=True)

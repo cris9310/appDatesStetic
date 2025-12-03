@@ -5,7 +5,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Calendar } from "@/components/ui/calendar";
-import { Input } from "@/components/ui/input";
 import { motion } from 'framer-motion';
 import UpdateServices from "../forms/formsServices/formUpdateServices";
 import CreateServices from "../forms/formsServices/formNewServices";
@@ -18,7 +17,6 @@ import {
   Users,
   Scissors,
   Settings,
-  Bell,
   Plus,
   Clock,
   DollarSign,
@@ -31,9 +29,7 @@ import {
   User,
   MoreHorizontal,
   Edit,
-  Search,
-  CheckCircle2Icon,
-  Building
+  CheckCircle2Icon
 
 } from "lucide-react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";

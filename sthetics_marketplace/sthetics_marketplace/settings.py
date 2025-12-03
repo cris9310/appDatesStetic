@@ -41,7 +41,7 @@ SECRET_KEY = get_secret('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']#"10.192.104.82", "127.0.0.1", 'localhost'
 
 
 # Application definition
@@ -73,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'sthetics_marketplace.urls'
@@ -157,6 +158,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "exp://10.192.104.82:8081",
+    "http://localhost:8081",
+    'http://192.168.1.249:8000',
+    'http://192.168.1.249:8001'
+    
+
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True

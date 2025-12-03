@@ -139,7 +139,7 @@ const BusinessRegistrationForm = () => {
     formDataToSend.append('is_verified', formData.is_verified ? 'true' : 'false');
 
     setIsSubmitting(true);
-    setSubmissionProgress(0);
+    setSubmissionProgress(0); 
     try {
       await fetch("http://127.0.0.1:8000/companies/locations/", {
         method: "POST",

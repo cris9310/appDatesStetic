@@ -21,7 +21,6 @@ class LocationSerializers(serializers.ModelSerializer):
     total_reviews = serializers.SerializerMethodField()
     services = serializers.SerializerMethodField()
     image = serializers.ImageField()
-    city = serializers.PrimaryKeyRelatedField(queryset=City.objects.all())
     rut_document = serializers.FileField()
     category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
 
@@ -37,8 +36,46 @@ class LocationSerializers(serializers.ModelSerializer):
     
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['city'] = instance.city.name
         representation['category'] = instance.category.name
+        return representation
+
+    @extend_schema_field(serializers.FloatField())
+    def get_average_score(self, obj):
+        return Reviews.objects.filter(location=obj).aggregate(avg=Avg('score'))['avg'] or 0.0
+
+    @extend_schema_field(serializers.IntegerField())
+    def get_total_reviews(self, obj):
+        return Reviews.objects.filter(location=obj).count()
+
+    @extend_schema_field(serviceSerializer(many=True))
+    def get_services(self, obj):
+        services = Service.objects.filter(location=obj)
+        return serviceSerializer(services, many=True).data
+    
+
+class LocationSerializersMobileApp(serializers.ModelSerializer):
+    average_score = serializers.SerializerMethodField()
+    total_reviews = serializers.SerializerMethodField()
+    services = serializers.SerializerMethodField()
+    image = serializers.ImageField()
+    rut_document = serializers.FileField()
+    category = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all())
+
+    class Meta:
+        model=Location
+        fields = '__all__'
+    
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['category'] = instance.category.name
+        request = self.context.get("request")
+
+        if instance.image:
+            representation['image'] = request.build_absolute_uri(instance.image.url)
+
+        if instance.rut_document:
+            representation['rut_document'] = request.build_absolute_uri(instance.rut_document.url)
+
         return representation
 
     @extend_schema_field(serializers.FloatField())

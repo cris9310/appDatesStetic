@@ -12,5 +12,6 @@ urlpatterns = [
     
     path('verify-forms/', VerifiedFormsViewSet.as_view(), name='verify-forms'),
     path('List-my-locations/', LocationListUserViewSet.as_view(), name='List-my-locations'),
+    path("app/locations/", LocationViewSetMobileApp.as_view(), name="locations-app"),
     
 ]
