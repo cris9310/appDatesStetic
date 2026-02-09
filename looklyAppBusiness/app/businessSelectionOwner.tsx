@@ -13,6 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { useRouter } from 'expo-router';
 import { useNavigation } from "@react-navigation/native";
+import { API_URL } from '@/constants/config';
 
 const BusinessSelection = () => {
     const [locations, setLocations] = useState([]);
@@ -28,7 +29,7 @@ const BusinessSelection = () => {
             const token = await AsyncStorage.getItem("access");
             try {
                 const response = await axios.get(
-                    "http://10.192.104.82:8000/companies/List-my-locations/", /*192.168.1.249 10.192.104.82*/
+                    `${API_URL}/companies/List-my-locations/`,
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,

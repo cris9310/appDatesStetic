@@ -36,7 +36,7 @@ class ProfessionalRegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model=User
-        fields = ['email', 'name','phone', 'password','profile_image']
+        fields = ["id",'email', 'name','phone', 'password','profile_image']
 
     def create(self, validated_data):
         password = validated_data.pop('password')

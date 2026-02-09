@@ -6,6 +6,7 @@ import {
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
+import { API_URL } from '@/constants/config';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -27,7 +28,7 @@ const Login = () => {
 
         try {
             setLoading(true)
-            const response = await fetch('http://10.192.104.82:8000/api/token/', { /**10.192.104.82 en la residencia */
+            const response = await fetch(`${API_URL}/api/token/`, { /**10.192.104.82 en la residencia */
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
@@ -38,7 +39,7 @@ const Login = () => {
                 await AsyncStorage.setItem('access', data.access);
                 await AsyncStorage.setItem('refresh', data.refresh);
                 await AsyncStorage.setItem('loggedIn', 'true');
-                const profileResponse = await fetch("http://10.192.104.82:8000/user/profile/", {
+                const profileResponse = await fetch(`${API_URL}/user/profile/`, {
                     method: "GET",
                     headers: {
                         "Authorization": `Bearer ${data.access}`,

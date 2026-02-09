@@ -11,6 +11,7 @@ urlpatterns=[
     path('delete/', DeleteAccountView.as_view(), name='account-delete'),
     path('professionals/', ProfessionalListView.as_view(), name='professional-list'),
     path('professionals/<int:id>/', ProfessionalDetailView.as_view(), name='professional-detail'),
+    path('profile/date/<str:phone>/', ProfileViewDates.as_view(), name='profile-date'),
 
 
 

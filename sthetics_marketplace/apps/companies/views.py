@@ -18,7 +18,7 @@ class CityViewSet(viewsets.ModelViewSet):
 class LocationViewSet(viewsets.ModelViewSet):
     queryset = Location.objects.all()
     serializer_class = LocationSerializers
-    permission_classes = [AllowAny] 
+    permission_classes = [IsAuthenticated]
 
 class LocationViewSetMobileApp(CreateAPIView):
     serializer_class = LocationSerializersMobileApp

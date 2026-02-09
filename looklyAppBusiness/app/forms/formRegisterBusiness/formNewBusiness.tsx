@@ -19,6 +19,7 @@ import {
 import RNPickerSelect from "react-native-picker-select";
 import { useFormContext, Controller } from "react-hook-form";
 import * as DocumentPicker from "expo-document-picker";
+import { API_URL, MAPBOX_TOKEN } from '@/constants/config';
 
 export default function FormNewBusiness({ data, updateData }) {
     const {
@@ -29,7 +30,6 @@ export default function FormNewBusiness({ data, updateData }) {
     const [categorias, setCategorias] = useState([]);
     const [loading, setLoading] = useState(true);
     const [suggestions, setSuggestions] = useState([]);
-    const MAPBOX_TOKEN = "pk.eyJ1IjoiY3JpczkzMTAiLCJhIjoiY21paHQxd2UyMGlzbDNkcjFwNTdiM2RlNiJ9.uXXlWPP_kH3gp-tZAOS4Cw";
 
     const searchAddress = async (query) => {
         if (!query) return [];
@@ -54,7 +54,7 @@ export default function FormNewBusiness({ data, updateData }) {
 
     useEffect(() => {
         Promise.all([
-            fetch("http://10.192.104.82:8000/companies/Category/").then((r) =>/*192.168.1.249 10.192.104.82*/
+            fetch(`${API_URL}/companies/Category/`).then((r) =>
                 r.json()
             ),
         ])

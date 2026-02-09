@@ -32,7 +32,22 @@ class ProfileView(generics.RetrieveAPIView):
     def get_object(self):
         return self.request.user
 
+#Esta vista sirve para traer los datos del usuario al que se quiere asignar una cita
+class ProfileViewDates(APIView):
+    permission_classes = [permissions.IsAuthenticated]
 
+    def get(self, request,phone):
+        user_info= User.objects.filter(phone=phone)
+        data = [
+        {
+            "id": u.id,
+            "name": u.name,
+            "email": u.email,
+            "phone": u.phone,
+        }
+        for u in user_info
+    ]
+        return Response(data)
 
 #Listamos los usuarios que son profesionales
 class ProfessionalListView(generics.ListAPIView):

@@ -39,7 +39,7 @@ class Location(models.Model):
     is_active = models.BooleanField(default=True)
     
     def __str__(self):
-        return f"{self.name_business} - {self.city}"
+        return f"{self.name_business}"
     
 class Reviews(models.Model):
     location =  models.ForeignKey(Location, on_delete=models.CASCADE,  null=True)

@@ -34,9 +34,12 @@ class ServiceViewSet(viewsets.ModelViewSet):
         serializer.save()
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        location_id = self.kwargs.get("location_id")
+        if self.action in ["retrieve", "update", "partial_update", "destroy"]:
+            return Service.objects.all()
+
+        location_id = self.request.query_params.get("location_id")
         if location_id:
-            queryset = queryset.filter(location=location_id)
-        return queryset
+            return Service.objects.filter(location=location_id)
+
+        return Service.objects.none()
     
