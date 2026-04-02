@@ -5,7 +5,6 @@ import {
     TextInput,
     TouchableOpacity,
     StyleSheet,
-    Image,
     ScrollView,
     KeyboardAvoidingView,
     Platform,
@@ -15,7 +14,6 @@ import {
 } from 'react-native';
 import { User, Phone, Mail, Lock, Eye, EyeOff } from 'lucide-react-native';
 import { useNavigation } from "expo-router";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
 import Toast from 'react-native-toast-message';
 import axios from "axios";

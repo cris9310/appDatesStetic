@@ -5,7 +5,6 @@ import {
     StyleSheet,
     Alert,
     TextInput,
-    Switch,
     KeyboardAvoidingView,
     Platform,
     ScrollView
@@ -16,7 +15,6 @@ import { API_URL } from '@/constants/config';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from 'expo-router';
 import { useLocalSearchParams } from "expo-router";
-import { Controller } from "react-hook-form";
 
 function UpdateServices() {
 

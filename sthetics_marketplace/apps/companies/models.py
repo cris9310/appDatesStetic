@@ -37,6 +37,8 @@ class Location(models.Model):
     )
     is_verified = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    created_at = models.DateField(auto_now_add=True)
+    is_billable = models.BooleanField(default=False)  
     
     def __str__(self):
         return f"{self.name_business}"

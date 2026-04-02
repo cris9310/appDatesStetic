@@ -36,6 +36,8 @@ export default function RootLayout() {
             <Stack.Screen name="formCrud/formCreateService" options={{ headerShown: false }} />
             <Stack.Screen name="formCrud/formCreateDateFull" options={{ headerShown: false }} />
             <Stack.Screen name="formCrud/formDeleteDate" options={{ headerShown: false }} />
+            <Stack.Screen name="pays/paysUser" options={{ headerShown: false }} />
+            <Stack.Screen name="pays/invoiceList" options={{ headerShown: false }} />
 
 
             <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />

@@ -3,7 +3,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.generics import GenericAPIView, ListAPIView, CreateAPIView
 from rest_framework.response import Response
 from rest_framework import status
-
+from datetime import date
+from apps.billing.models import Subscription
 
 from .models import *
 from .serializers import *
@@ -30,7 +31,16 @@ class LocationViewSetMobileApp(CreateAPIView):
         if serializer.is_valid():
             locationBusiness = serializer.save()
             serializer_response = self.serializer_class(locationBusiness, context={'request': request})
+            today = date.today()
+            subscription = Subscription.objects.get(User=request.user)
+            if subscription.status == "trial":
+                locationBusiness.is_billable = True
 
+            elif today.day <= 15:
+                locationBusiness.is_billable = True
+
+            else:
+                locationBusiness.is_billable = False
             return Response(
                 {"message": "Datos recibidos", "data": serializer_response.data},
                 status=status.HTTP_201_CREATED

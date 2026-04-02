@@ -5,13 +5,12 @@ import {
     StyleSheet,
     Alert
 } from "react-native";
-import { Scissors, ChevronLeft } from "lucide-react-native";
+import { ChevronLeft } from "lucide-react-native";
 import React, { useState, useEffect } from "react";
 import { API_URL } from '@/constants/config';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from 'expo-router';
 import { useLocalSearchParams } from "expo-router";
-import { Controller } from "react-hook-form";
 
 function DeleteDate() {
 

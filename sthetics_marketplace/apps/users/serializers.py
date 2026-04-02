@@ -4,6 +4,7 @@ from django.utils import timezone
 from datetime import timedelta
 
 from .models import User 
+from apps.billing.models import Subscription
 
 #Nos sirve para mostrar la información del usuario, quitando los datos sensibles como la contraseña
 class UserSerializer(serializers.ModelSerializer):
@@ -43,11 +44,16 @@ class ProfessionalRegisterSerializer(serializers.ModelSerializer):
         user = User.objects.create(**validated_data)
         user.set_password(password)
 
-        user.trial_start_date = timezone.now().date()
-        user.trial_end_date = timezone.now().date() + timedelta(days=14)
+        suscription_user= Subscription.objects.create(
+            user=user,
+            trial_start=timezone.now().date(),
+            trial_end=timezone.now().date() + timedelta(days=14)
+        )
         user.role = 'Professional'
         user.save()
         return user
+    
+    
 
 
 class ChangePasswordSerializer(serializers.Serializer):

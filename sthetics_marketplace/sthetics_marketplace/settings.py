@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'apps.dates',
     'apps.services',
     'apps.companies',
+    'apps.billing',
     
 ]
 

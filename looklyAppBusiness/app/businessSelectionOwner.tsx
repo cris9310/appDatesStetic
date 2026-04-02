@@ -8,21 +8,17 @@ import {
     ActivityIndicator,
     Alert,
 } from "react-native";
-import { Building2, MapPin, Clock, Star, Power, MoveRight, Menu } from 'lucide-react-native';
+import { Building2, MapPin, Clock, Star, MoveRight, Menu } from 'lucide-react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { useRouter } from 'expo-router';
-import { useNavigation } from "@react-navigation/native";
 import { API_URL } from '@/constants/config';
 
 const BusinessSelection = () => {
     const [locations, setLocations] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [visible, setVisible] = React.useState(false);
-    const openMenu = () => setVisible(true);
-    const closeMenu = () => setVisible(false);
+    const [subscription, setSubscription] = useState([]);
     const router = useRouter();
-    const navigation = useNavigation();
 
     useEffect(() => {
         const getLocations = async () => {
@@ -91,6 +87,52 @@ const BusinessSelection = () => {
             { cancelable: true }
         );
     };
+    const handleOptions = () => {
+        Alert.alert(
+            "Opciones",
+            "Selecciona una opción",
+            [
+
+                {
+                    text: "Cerrar sesión",
+                    onPress: () => { handleLogout() },
+                },
+                {
+                    text: "Pagos",
+                    onPress: () => router.push(`/pays/paysUser`),
+                },
+                {
+                    text: "Facturas",
+                    onPress: () => router.push(`/pays/invoiceList`),
+                },
+            ],
+            { cancelable: true }
+        );
+    };
+
+    useEffect(() => {
+        const getSuscription = async () => {
+            const token = await AsyncStorage.getItem("access");
+            try {
+                const response = await axios.get(
+                    `${API_URL}/billing/get-detail-suscription/`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
+                setSubscription(response.data);
+            } catch (error) {
+                console.error(error);
+                Alert.alert("Error", "No se pudieron obtener los datos .");
+            }
+        };
+
+        getSuscription();
+    }, []);
+
 
     if (loading) {
         return (
@@ -107,7 +149,7 @@ const BusinessSelection = () => {
                 <View style={styles.headerTitle}>
                     <View >
                         <View style={styles.iconContainer}>
-                            <Menu size={24} color="#6c63ff" style={styles.icon} onPress={handleLogout} />
+                            <Menu size={24} color="#6c63ff" style={styles.icon} onPress={handleOptions} />
                         </View>
                     </View>
 
@@ -120,10 +162,18 @@ const BusinessSelection = () => {
                     </View>
 
                 </View>
-                <TouchableOpacity style={styles.button} onPress={handlegister} activeOpacity={0.7}>
-                    <Building2 size={20} color="white" style={styles.iconButton} />
-                    <Text style={styles.buttonText}>Registrar nuevo local</Text>
-                </TouchableOpacity>
+                {(subscription.status === "trial" ||
+                    subscription.status === "active") && (
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={handlegister}
+                            activeOpacity={0.7}
+                        >
+                            <Building2 size={20} color="white" style={styles.iconButton} />
+                            <Text style={styles.buttonText}>Registrar nuevo local</Text>
+                        </TouchableOpacity>
+                    )}
+
             </View>
 
             {/* Lista de negocios */}
@@ -144,7 +194,6 @@ const BusinessSelection = () => {
                         <TouchableOpacity
                             key={business.id}
                             style={styles.card}
-                            onPress={() => handleSelectBusiness(business.id)}
                         >
                             <View style={styles.cardHeader}>
                                 <View style={styles.iconContainer}>
@@ -174,18 +223,32 @@ const BusinessSelection = () => {
                                     {business.opening_time} - {business.closing_time}
                                 </Text>
                             </View>
-                            <TouchableOpacity
-                                style={styles.button}
-                                onPress={() => handleSelectBusiness(business.id)}
-                                activeOpacity={0.7}
-                            >
+                            {(subscription.status === "trial" ||
+                                subscription.status === "active") ? (
+                                <TouchableOpacity
+                                    style={styles.button}
+                                    onPress={() => handleSelectBusiness(business.id)}
+                                    activeOpacity={0.7}
+                                >
+                                    <Text style={styles.buttonText}>
+                                        Administrar Negocio
+                                    </Text>
 
-                                <Text style={styles.buttonText}>
-                                    Administrar Negocio
-                                </Text>
+                                    <MoveRight size={18} color="white" style={styles.iconButton} />
+                                </TouchableOpacity>
+                            ) : (
+                                <TouchableOpacity
+                                    style={styles.button}
+                                    onPress={() => router.push(`/pays/paysUser`)}
+                                    activeOpacity={0.7}
+                                >
+                                    <Text style={styles.buttonText}>
+                                        Actualizar
+                                    </Text>
 
-                                <MoveRight size={18} color="white" style={styles.iconButton} />
-                            </TouchableOpacity>
+                                    <MoveRight size={18} color="white" style={styles.iconButton} />
+                                </TouchableOpacity>
+                            )}
                         </TouchableOpacity>
                     ))
                 )}

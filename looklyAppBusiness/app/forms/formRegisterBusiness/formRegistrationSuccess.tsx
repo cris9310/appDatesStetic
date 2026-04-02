@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
-import { CheckCircle, Sparkles, Check, Download } from "lucide-react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { CheckCircle, Sparkles, Check } from "lucide-react-native";
 import { useRouter } from 'expo-router';
 
 const RegistrationSuccessScreen = () => {

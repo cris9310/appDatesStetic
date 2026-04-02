@@ -3,13 +3,10 @@ import {
     Text,
     TouchableOpacity,
     StyleSheet,
-    Alert,
     Modal,
-    TextInput,
     ScrollView,
     FlatList,
     Dimensions,
-    Button
 } from "react-native";
 import { useLocalSearchParams, useRouter, useFocusEffect } from "expo-router";
 import { useState, useEffect, useCallback } from "react";
@@ -53,7 +50,6 @@ const AdminBusiness = () => {
     const [DatesToday, setDatesToday] = useState([]);
     const [mode, setMode] = useState<'day' | 'week' | 'month'>('week');
     const insets = useSafeAreaInsets();
-    // reserve space for header/footer and controls; ensure minimum height
 
     const calendarHeight = Math.max(windowHeight - 220, 600);
 
@@ -79,7 +75,7 @@ const AdminBusiness = () => {
         try {
             const token = await AsyncStorage.getItem("access");
             const res = await fetch(
-                `${API_URL}/companies/locations/${id}`, //10.192.104.82
+                `${API_URL}/companies/locations/${id}`,
                 {
                     headers: {
                         "Content-Type": "application/json",

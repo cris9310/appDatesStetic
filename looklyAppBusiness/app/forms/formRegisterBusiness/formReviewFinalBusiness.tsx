@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
-import { Card, Badge } from 'react-native-paper';
+import { View, Text, StyleSheet } from 'react-native';
+import { Badge } from 'react-native-paper';
 import {
     Building,
-    Clock,
     MapPin,
-    Calendar,
     Check,
     CreditCard
 } from 'lucide-react-native';

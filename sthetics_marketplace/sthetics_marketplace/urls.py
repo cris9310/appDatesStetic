@@ -27,6 +27,7 @@ urlpatterns = [
     path('companies/', include('apps.companies.urls')),
     path('services/', include('apps.services.urls')),
     path('dates/', include('apps.dates.urls')),
+    path('billing/', include('apps.billing.urls')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),

@@ -7,7 +7,7 @@ import {
     StyleSheet,
     FlatList,
 } from "react-native";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from '@/constants/config';
 import { ChevronLeft } from "lucide-react-native";
@@ -87,7 +87,7 @@ const FormSelectDateUser = ({ selectedClient, onSelectClient, onselectClientName
                                 styles.clientItem,
                                 isSelected && styles.clientSelected,
                             ]}
-                            onPress={() => {onSelectClient(item.id); onselectClientName(item.name)}}
+                            onPress={() => { onSelectClient(item.id); onselectClientName(item.name) }}
                         >
                             <Text style={{ fontWeight: '600' }}>
                                 {item.name}

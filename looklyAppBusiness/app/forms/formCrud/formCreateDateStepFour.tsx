@@ -1,10 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import dayjs from "dayjs";
-import { ChevronLeft } from "lucide-react-native";
 import { useRouter } from 'expo-router';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { API_URL } from '@/constants/config';
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 
 
